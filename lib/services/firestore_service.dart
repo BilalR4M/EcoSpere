@@ -23,7 +23,7 @@ class FirestoreService {
       // Assuming 'date' field is stored as Timestamp in Firestore
       // We need to fetch schedules where the 'date' is the same day
       DateTime startOfDay = DateTime(date.year, date.month, date.day);
-      DateTime endOfDay = startOfDay.add(Duration(days: 1));
+      DateTime endOfDay = startOfDay.add(const Duration(days: 1));
 
       QuerySnapshot snapshot = await _db
           .collection('schedules')

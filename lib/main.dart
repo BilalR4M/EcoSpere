@@ -26,7 +26,7 @@ class Ecosphere extends StatelessWidget {
 
       //routes
       routes: {
-        '/calendar': (context) => CalendarPage(), // Define the calendar route
+        '/calendar': (context) => const CalendarPage(), // Define the calendar route
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) => const Home());

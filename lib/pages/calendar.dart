@@ -29,7 +29,7 @@ class _CalendarPageState extends State<CalendarPage> {
   QuerySnapshot snapshot = await _firestore.collection('schedules').get();
   Map<DateTime, List<dynamic>> events = {};
 
-  snapshot.docs.forEach((doc) {
+  for (var doc in snapshot.docs) {
     Timestamp timestamp = doc['date'];
     DateTime date = timestamp.toDate();
     List<dynamic> activities = doc['activity']; // Get activities as a list
@@ -39,7 +39,7 @@ class _CalendarPageState extends State<CalendarPage> {
       events[day] = [];
     }
     events[day]!.addAll(activities); // Add all activities for the date
-  });
+  }
 
   setState(() {
     _events = events;
