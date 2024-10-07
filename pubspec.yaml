@@ -44,6 +44,7 @@ dependencies:
   google_fonts: ^6.2.1
   google_sign_in: ^6.2.1
   clean_calendar: ^2.0.0
+  fluttertoast: ^8.2.8
 
 dev_dependencies:
   flutter_test:
