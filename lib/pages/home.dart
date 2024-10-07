@@ -37,8 +37,9 @@ class Home extends StatelessWidget {
                     )
                   ),
                 ),
-                 const SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 _logout(context),
+                const SizedBox(height: 30,),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xff185519),

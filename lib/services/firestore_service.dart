@@ -66,4 +66,11 @@ class FirestoreService {
       log('Error deleting schedule: $e');
     }
   }
+
+  // Stream of schedules for real-time updates
+  Stream<List<Schedule>> getAllSchedulesStream() {
+    return _db.collection('schedules').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => Schedule.fromDocument(doc)).toList();
+    });
+  }
 }

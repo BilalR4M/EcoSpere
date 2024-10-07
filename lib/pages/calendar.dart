@@ -1,10 +1,12 @@
 // lib/pages/calendar_page.dart
 
-import 'package:ecosphere/models/activity.dart';
+
+import 'package:ecosphere/pages/search.dart';
 import 'package:ecosphere/src/add_schedule.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:ecosphere/models/schedule.dart';
 import 'package:ecosphere/services/firestore_service.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,6 +31,14 @@ class _CalendarPageState extends State<CalendarPage> {
     super.initState();
     _fetchSchedules();
   }
+  
+  String getFormattedDay() {
+    // If a day is selected, show its day name, otherwise show "Today"
+  return _selectedDay != null 
+      ? DateFormat('EEEE').format(_selectedDay!) 
+      : 'Today';
+  }
+
 
   Future<void> _fetchSchedules() async {
     List<Schedule> schedules = await _firestoreService.getAllSchedules();
@@ -54,12 +64,41 @@ class _CalendarPageState extends State<CalendarPage> {
     return _events[DateTime(day.year, day.month, day.day)] ?? [];
   }
 
+  /// Helper function to get the SVG path based on the waste collection type
+  String _getSvgForActivity(String activity) {
+    switch (activity) {
+      case 'Recyclable Waste Collection1':
+        return 'assets/icons/recyclable_waste.svg';
+      case 'E-Waste Collection1':
+        return 'assets/icons/e_waste.svg';
+      case 'Battery Collection1':
+        return 'assets/icons/battery_waste.svg';
+      case 'Plastics Recycling Collection':
+        return 'assets/icons/plastics_recycling.svg';
+      // Add more cases for other activity types
+      default:
+        return 'assets/icons/default_waste.svg'; // Fallback icon
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Waste Schedule', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color(0xff185519),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.white,),
+            onPressed: () {
+              // Navigate to the SearchPage
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SearchPage()),
+              );
+            },
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -70,7 +109,8 @@ class _CalendarPageState extends State<CalendarPage> {
       ),
       body: Column(
         children: [
-          const Center(child: Text('Today', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))),
+          const SizedBox(height: 16),
+          Center(child: Text(getFormattedDay(), style: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold))),
           TableCalendar<String>(
             firstDay: DateTime.utc(2020, 1, 1),
             lastDay: DateTime.utc(2030, 12, 31),
@@ -108,21 +148,44 @@ class _CalendarPageState extends State<CalendarPage> {
           const SizedBox(height: 8.0),
           const Divider(),
           const SizedBox(height: 8.0),
-          const Center(child: Text('Schedules', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold))),
+          const Center(
+            child: Text(
+            'Schedules',
+            style: TextStyle(
+              color: Colors.black, 
+              fontSize: 20, 
+              fontWeight: FontWeight.bold,
+            ),)),
           const SizedBox(height: 8.0),
           Expanded(
             child: _getEventsForDay(_selectedDay ?? _focusedDay).isEmpty
                 ? const Center(child: Text('No schedules for this day.'))
                 : ListView(
-                    children: _getEventsForDay(_selectedDay ?? _focusedDay)
-                        .map((event) => ListTile(
-                              title: Text(event),
-                              // Optionally, display SVG icons or additional info
-                              // leading: SvgPicture.asset('assets/icons/trash.svg'), // Example
-                            ))
-                        .toList(),
+                    children: _getEventsForDay(_selectedDay ?? _focusedDay).map((event) {
+                      // Assuming `event` is a String in the format 'activity in city at collectionTime'
+                      final parts = event.split(' in ');
+                      final activity = parts[0];
+                      final cityAndTime = parts[1].split(' at ');
+                      final city = cityAndTime[0];
+                      final collectionTime = cityAndTime[1];
+                      
+                      // Select an SVG asset based on the activity
+                      String svgPath = _getSvgForActivity(activity); // Helper function
+
+                      return ListTile(
+                        leading: SvgPicture.asset(
+                          svgPath,
+                          width: 40, // Set the size of the SVG icon
+                          height: 40,
+                          semanticsLabel: 'Waste Collection Icon',
+                        ),
+                        title: Text(activity),
+                        subtitle: Text('City: $city  |  Collection Time: $collectionTime'),
+                      );
+                    }).toList(),
                   ),
-          ),
+          )
+  
         ],
       ),
     );
