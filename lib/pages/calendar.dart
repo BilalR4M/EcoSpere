@@ -1,8 +1,13 @@
+// lib/pages/calendar_page.dart
+
+import 'package:ecosphere/models/activity.dart';
 import 'package:ecosphere/src/add_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:ecosphere/models/schedule.dart';
+import 'package:ecosphere/services/firestore_service.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
@@ -16,8 +21,8 @@ class _CalendarPageState extends State<CalendarPage> {
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Map<DateTime, List<dynamic>> _events = {};
+  final FirestoreService _firestoreService = FirestoreService();
+  Map<DateTime, List<String>> _events = {};
 
   @override
   void initState() {
@@ -26,28 +31,26 @@ class _CalendarPageState extends State<CalendarPage> {
   }
 
   Future<void> _fetchSchedules() async {
-  QuerySnapshot snapshot = await _firestore.collection('schedules').get();
-  Map<DateTime, List<dynamic>> events = {};
+    List<Schedule> schedules = await _firestoreService.getAllSchedules();
+    Map<DateTime, List<String>> events = {};
 
-  for (var doc in snapshot.docs) {
-    Timestamp timestamp = doc['date'];
-    DateTime date = timestamp.toDate();
-    List<dynamic> activities = doc['activity']; // Get activities as a list
-
-    DateTime day = DateTime(date.year, date.month, date.day);
-    if (events[day] == null) {
-      events[day] = [];
+    for (var schedule in schedules) {
+      DateTime day = DateTime(schedule.date.year, schedule.date.month, schedule.date.day);
+      if (events[day] == null) {
+        events[day] = [];
+      }
+      for (var activity in schedule.activities) {
+        String activityStr = '${activity.activity} in ${activity.city} at ${activity.collectionTime}';
+        events[day]!.add(activityStr);
+      }
     }
-    events[day]!.addAll(activities); // Add all activities for the date
+
+    setState(() {
+      _events = events;
+    });
   }
 
-  setState(() {
-    _events = events;
-  });
-}
-
-
-  List<dynamic> _getEventsForDay(DateTime day) {
+  List<String> _getEventsForDay(DateTime day) {
     return _events[DateTime(day.year, day.month, day.day)] ?? [];
   }
 
@@ -55,18 +58,20 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Waste Schedule'),
+        title: const Text('Waste Schedule', style: TextStyle(color: Colors.white)),
         backgroundColor: const Color(0xff185519),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          ScheduleService().addSchedules();
+        onPressed: () async {
+          await ScheduleService().addSchedules();
+          _fetchSchedules();
         },
         child: const Icon(Icons.add),
       ),
       body: Column(
         children: [
-          TableCalendar(
+          const Center(child: Text('Today', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold))),
+          TableCalendar<String>(
             firstDay: DateTime.utc(2020, 1, 1),
             lastDay: DateTime.utc(2030, 12, 31),
             focusedDay: _focusedDay,
@@ -78,7 +83,7 @@ class _CalendarPageState extends State<CalendarPage> {
             onDaySelected: (selectedDay, focusedDay) {
               setState(() {
                 _selectedDay = selectedDay;
-                _focusedDay = focusedDay; // update `_focusedDay` here as well
+                _focusedDay = focusedDay;
               });
             },
             onFormatChanged: (format) {
@@ -89,16 +94,34 @@ class _CalendarPageState extends State<CalendarPage> {
             onPageChanged: (focusedDay) {
               _focusedDay = focusedDay;
             },
+            calendarStyle: const CalendarStyle(
+              todayDecoration: BoxDecoration(
+                color: Colors.greenAccent,
+                shape: BoxShape.circle,
+              ),
+              selectedDecoration: BoxDecoration(
+                color: Colors.green,
+                shape: BoxShape.circle,
+              ),
+            ),
           ),
           const SizedBox(height: 8.0),
+          const Divider(),
+          const SizedBox(height: 8.0),
+          const Center(child: Text('Schedules', style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold))),
+          const SizedBox(height: 8.0),
           Expanded(
-            child: ListView(
-              children: _getEventsForDay(_selectedDay ?? _focusedDay)
-                  .map((event) => ListTile(
-                        title: Text(event),
-                      ))
-                  .toList(),
-            ),
+            child: _getEventsForDay(_selectedDay ?? _focusedDay).isEmpty
+                ? const Center(child: Text('No schedules for this day.'))
+                : ListView(
+                    children: _getEventsForDay(_selectedDay ?? _focusedDay)
+                        .map((event) => ListTile(
+                              title: Text(event),
+                              // Optionally, display SVG icons or additional info
+                              // leading: SvgPicture.asset('assets/icons/trash.svg'), // Example
+                            ))
+                        .toList(),
+                  ),
           ),
         ],
       ),

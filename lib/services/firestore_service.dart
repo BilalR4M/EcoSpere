@@ -1,5 +1,6 @@
-import 'dart:developer';
+// lib/services/firestore_service.dart
 
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/schedule.dart';
 
@@ -17,11 +18,9 @@ class FirestoreService {
     }
   }
 
-  // Optionally, fetch schedules for a specific date
+  // Fetch schedules for a specific date
   Future<List<Schedule>> getSchedulesForDate(DateTime date) async {
     try {
-      // Assuming 'date' field is stored as Timestamp in Firestore
-      // We need to fetch schedules where the 'date' is the same day
       DateTime startOfDay = DateTime(date.year, date.month, date.day);
       DateTime endOfDay = startOfDay.add(const Duration(days: 1));
 
@@ -35,6 +34,36 @@ class FirestoreService {
     } catch (e) {
       log('Error fetching schedules for date: $e');
       return [];
+    }
+  }
+
+  // Add a new schedule with multiple activities
+  Future<void> addSchedule(Schedule schedule) async {
+    try {
+      await _db.collection('schedules').add(schedule.toMap());
+      log('Schedule added successfully');
+    } catch (e) {
+      log('Error adding schedule: $e');
+    }
+  }
+
+  // Update an existing schedule
+  Future<void> updateSchedule(String id, Schedule schedule) async {
+    try {
+      await _db.collection('schedules').doc(id).update(schedule.toMap());
+      log('Schedule updated successfully');
+    } catch (e) {
+      log('Error updating schedule: $e');
+    }
+  }
+
+  // Delete a schedule by id
+  Future<void> deleteSchedule(String id) async {
+    try {
+      await _db.collection('schedules').doc(id).delete();
+      log('Schedule deleted successfully');
+    } catch (e) {
+      log('Error deleting schedule: $e');
     }
   }
 }
