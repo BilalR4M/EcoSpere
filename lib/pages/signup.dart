@@ -72,7 +72,7 @@ class Signup extends StatelessWidget {
           controller: _emailController,
           decoration: InputDecoration(
             filled: true,
-            hintText: 'mahdiforwork@gmail.com',
+            hintText: 'email',
             hintStyle: const TextStyle(
               color: Color(0xff6A6A6A),
               fontWeight: FontWeight.normal,
@@ -110,6 +110,12 @@ class Signup extends StatelessWidget {
           obscureText: true,
           decoration: InputDecoration(
             filled: true,
+            hintText: 'password',
+            hintStyle: const TextStyle(
+              color: Color(0xff6A6A6A),
+              fontWeight: FontWeight.normal,
+              fontSize: 14
+            ),
             fillColor: const Color(0xffF7F7F9) ,
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
@@ -152,7 +158,7 @@ class Signup extends StatelessWidget {
             const TextSpan(
                 text: "Already Have Account? ",
                 style: TextStyle(
-                  color: Color(0xffF7F7F9),
+                  color: Color(0xff6A6A6A),
                   fontWeight: FontWeight.normal,
                   fontSize: 16
                 ),
@@ -160,7 +166,7 @@ class Signup extends StatelessWidget {
               TextSpan(
                 text: "Log In",
                 style: const TextStyle(
-                    color: Color.fromARGB(255, 214, 237, 245),
+                    color: Color(0xFF18492E),
                     fontWeight: FontWeight.normal,
                     fontSize: 16
                   ),

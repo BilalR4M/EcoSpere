@@ -38,7 +38,21 @@ class Home extends StatelessWidget {
                   ),
                 ),
                  const SizedBox(height: 30,),
-                _logout(context)
+                _logout(context),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xff185519),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    minimumSize: const Size(double.infinity, 60),
+                    elevation: 0,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/calendar');
+                  },
+                  child: const Text("Waste Schedule", style: TextStyle(color: Colors.white),),
+                )
             ],
           ),
         ),
