@@ -15,8 +15,12 @@ class Login extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
-      bottomNavigationBar: _signup(context),
       appBar: AppBar(
+        centerTitle: true,
+        title: Image.asset(
+          'assets/logo.png',
+          height: 80,
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 100,
@@ -32,7 +36,7 @@ class Login extends StatelessWidget {
             ),
             child: const Center(
               child: Icon(
-                Icons.arrow_back_ios_new_rounded,
+                Icons.arrow_back_ios,
                 color: Colors.black,
               ),
             ),
@@ -45,16 +49,15 @@ class Login extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Center(
+              const SizedBox(height: 20,),
+              const Center(
                 child: Text(
-                  'Hello Again',
-                  style: GoogleFonts.raleway(
-                    textStyle: const TextStyle(
+                  'Welcome Back',
+                  style: TextStyle(
                       color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                       fontSize: 32
                     )
-                  ),
                 ),
               ),
               const SizedBox(height: 80,),
@@ -63,6 +66,8 @@ class Login extends StatelessWidget {
                _password(),
                const SizedBox(height: 50,),
                _signin(context),
+               const SizedBox(height: 20,),
+               _signup(context)
             ],
           ),
         ),
@@ -93,7 +98,7 @@ class Login extends StatelessWidget {
             hintText: 'email',
             hintStyle: const TextStyle(
               color: Color(0xff6A6A6A),
-              fontWeight: FontWeight.normal,
+              fontWeight: FontWeight.w400,
               fontSize: 14
             ),
             fillColor: const Color(0xffF7F7F9) ,
@@ -112,14 +117,12 @@ class Login extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Password',
-          style: GoogleFonts.raleway(
-            textStyle: const TextStyle(
+          style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.normal,
               fontSize: 16
-            )
           ),
         ),
         const SizedBox(height: 16,),

@@ -2,7 +2,6 @@ import 'package:ecosphere/pages/login.dart';
 import 'package:ecosphere/services/auth_service.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Signup extends StatelessWidget {
   Signup({super.key});
@@ -15,27 +14,48 @@ class Signup extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
-      bottomNavigationBar: _signin(context),
       appBar: AppBar(
+        centerTitle: true,
+        title: Image.asset(
+          'assets/logo.png',
+          height: 80,
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        toolbarHeight: 50,
+        toolbarHeight: 100,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            margin: const EdgeInsets.only(left: 10),
+            decoration: const BoxDecoration(
+              color: Color(0xffF7F7F9),
+              shape: BoxShape.circle
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
           child: Column(
             children: [
-              Center(
+              const SizedBox(height: 20,),
+              const Center(
                 child: Text(
-                  'Register Account',
-                  style: GoogleFonts.raleway(
-                    textStyle: const TextStyle(
+                  'Get Started',
+                  style: TextStyle(
                       color: Colors.black,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                       fontSize: 32
-                    )
-                  ),
+                  )
                 ),
               ),
               const SizedBox(height: 80,),
@@ -44,6 +64,8 @@ class Signup extends StatelessWidget {
                _password(),
                const SizedBox(height: 50,),
                _signup(context),
+               const SizedBox(height: 20,),
+               _signin(context)
             ],
           ),
 
@@ -57,14 +79,12 @@ class Signup extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Email Address',
-          style: GoogleFonts.raleway(
-            textStyle: const TextStyle(
+          style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.normal,
               fontSize: 16
-            )
           ),
         ),
         const SizedBox(height: 16,),
@@ -94,14 +114,12 @@ class Signup extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Password',
-          style: GoogleFonts.raleway(
-            textStyle: const TextStyle(
+          style:  TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.normal,
               fontSize: 16
-            )
           ),
         ),
         const SizedBox(height: 16,),
@@ -144,7 +162,7 @@ class Signup extends StatelessWidget {
           context: context
         );
       },
-      child: const Text("Sign Up", style: TextStyle(color: Color.fromARGB(243, 253, 218, 255)),),
+      child: const Text("Sign Up", style: TextStyle(color: Colors.white,)),
     );
   }
 

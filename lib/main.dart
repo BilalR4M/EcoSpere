@@ -19,6 +19,7 @@ class Ecosphere extends StatelessWidget {
     return MaterialApp(
       title: 'Ecosphere',
       theme: ThemeData(
+        fontFamily: 'Poppins',
         primarySwatch: Colors.green,
       ),
       debugShowCheckedModeBanner: false,

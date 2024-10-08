@@ -67,11 +67,11 @@ class _CalendarPageState extends State<CalendarPage> {
   /// Helper function to get the SVG path based on the waste collection type
   String _getSvgForActivity(String activity) {
     switch (activity) {
-      case 'Recyclable Waste Collection1':
+      case 'Recyclable Waste Collection':
         return 'assets/icons/recyclable_waste.svg';
-      case 'E-Waste Collection1':
+      case 'E-Waste Collection':
         return 'assets/icons/e_waste.svg';
-      case 'Battery Collection1':
+      case 'Battery Collection':
         return 'assets/icons/battery_waste.svg';
       case 'Plastics Recycling Collection':
         return 'assets/icons/plastics_recycling.svg';
