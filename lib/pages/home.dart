@@ -95,6 +95,24 @@ class _HomeState extends State<Home> {
                 ),
               ),
               const SizedBox(height: 30),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff185519),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  minimumSize: const Size(double.infinity, 60),
+                  elevation: 0,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/sponsor');
+                },
+                child: const Text(
+                  "Sponsor a tree",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 30),
               _logout(context),
               const SizedBox(height: 30),
               ElevatedButton(
@@ -137,7 +155,7 @@ class _HomeState extends State<Home> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
+            icon: Icon(Icons.calendar_month),
             label: 'Calendar',
           ),
           BottomNavigationBarItem(

@@ -124,7 +124,7 @@ class _SearchPageState extends State<SearchPage> {
                 citySet.add(activity.city);
               }
             }
-            List<String> cities = ['All', ...citySet.toList()];
+            List<String> cities = ['All', ...citySet];
 
             // Apply filters
             List<Schedule> filteredSchedules = schedules.where((schedule) {
