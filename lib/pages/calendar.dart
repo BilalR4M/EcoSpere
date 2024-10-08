@@ -19,7 +19,7 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPageState extends State<CalendarPage> {
-  CalendarFormat _calendarFormat = CalendarFormat.month;
+  CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
@@ -161,6 +161,7 @@ class _CalendarPageState extends State<CalendarPage> {
             child: _getEventsForDay(_selectedDay ?? _focusedDay).isEmpty
                 ? const Center(child: Text('No schedules for this day.'))
                 : ListView(
+                    padding: const EdgeInsets.all(8.0),
                     children: _getEventsForDay(_selectedDay ?? _focusedDay).map((event) {
                       // Assuming `event` is a String in the format 'activity in city at collectionTime'
                       final parts = event.split(' in ');
@@ -172,18 +173,36 @@ class _CalendarPageState extends State<CalendarPage> {
                       // Select an SVG asset based on the activity
                       String svgPath = _getSvgForActivity(activity); // Helper function
 
-                      return ListTile(
-                        leading: SvgPicture.asset(
-                          svgPath,
-                          width: 40, // Set the size of the SVG icon
-                          height: 40,
-                          semanticsLabel: 'Waste Collection Icon',
+                      return Container(
+                        margin: const EdgeInsets.symmetric(vertical: 4.0), // Margin between the containers
+                        padding: const EdgeInsets.all(4.0), // Padding inside the container
+                        decoration: BoxDecoration(
+
+                          color: const Color(0xFF9BF3D6), // Background color
+                          borderRadius: BorderRadius.circular(20), // Rounded corners with radius 10
                         ),
-                        title: Text(activity),
-                        subtitle: Text('City: $city  |  Collection Time: $collectionTime'),
+                        child: ListTile(
+                          leading: SvgPicture.asset(
+                            svgPath,
+                            width: 40, // Set the size of the SVG icon
+                            height: 40,
+                            semanticsLabel: 'Waste Collection Icon',
+                          ),
+                          title: Text(activity),
+                          subtitle: Row(
+                            children: [
+                              const Text('City: '),
+                              Text(city, style: const TextStyle(fontWeight: FontWeight.bold)),
+                              const SizedBox(width: 8.0),
+                              const Text('Collection Time: '),
+                              Text(collectionTime, style: const TextStyle(fontWeight: FontWeight.bold)),
+                              
+                            ],
+                          ),
+                        ),
                       );
                     }).toList(),
-                  ),
+                  )
           )
   
         ],
