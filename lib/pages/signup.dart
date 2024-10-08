@@ -1,3 +1,5 @@
+//signin page
+
 import 'package:ecosphere/pages/login.dart';
 import 'package:ecosphere/services/auth_service.dart';
 import 'package:flutter/gestures.dart';
@@ -6,8 +8,11 @@ import 'package:flutter/material.dart';
 class Signup extends StatelessWidget {
   Signup({super.key});
 
+  final TextEditingController _nameController = TextEditingController(); // Name field
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController(); // City field
+  final TextEditingController _phoneController = TextEditingController(); // Phone number field
 
   @override
   Widget build(BuildContext context) {
@@ -47,30 +52,48 @@ class Signup extends StatelessWidget {
          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
           child: Column(
             children: [
-              const SizedBox(height: 20,),
-              const Center(
-                child: Text(
-                  'Get Started',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 32
-                  )
-                ),
-              ),
-              const SizedBox(height: 80,),
-               _emailAddress(),
-               const SizedBox(height: 20,),
-               _password(),
-               const SizedBox(height: 50,),
-               _signup(context),
-               const SizedBox(height: 20,),
-               _signin(context)
+              
+              const SizedBox(height: 64),
+              _nameField(),
+              _cityField(), // Add city field
+              _phoneField(), // Add phone number field
+              _emailAddress(),
+              _password(),
+              const SizedBox(height: 32),
+              _signin(context),
+              _signup(context),
+              
             ],
           ),
-
-      ),
+        ),
       )
+    );
+  }
+
+  Widget _nameField() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 16,),
+        TextField(
+          controller: _nameController,
+          decoration: InputDecoration(
+            filled: true,
+            hintText: 'Enter your name',
+            hintStyle: const TextStyle(
+              color: Color(0xff6A6A6A),
+              fontWeight: FontWeight.normal,
+              fontSize: 14
+            ),
+            fillColor: const Color(0xffF7F7F9),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(14),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -79,14 +102,6 @@ class Signup extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Email Address',
-          style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.normal,
-              fontSize: 16
-          ),
-        ),
         const SizedBox(height: 16,),
         TextField(
           controller: _emailController,
@@ -114,14 +129,6 @@ class Signup extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Password',
-          style:  TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.normal,
-              fontSize: 16
-          ),
-        ),
         const SizedBox(height: 16,),
         TextField(
           controller: _passwordController,
@@ -145,6 +152,61 @@ class Signup extends StatelessWidget {
     );
   }
 
+  Widget _cityField() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 16,),
+        TextField(
+          controller: _cityController,
+          decoration: InputDecoration(
+            filled: true,
+            hintText: 'Enter your city',
+            hintStyle: const TextStyle(
+              color: Color(0xff6A6A6A),
+              fontWeight: FontWeight.normal,
+              fontSize: 14
+            ),
+            fillColor: const Color(0xffF7F7F9),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(14),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _phoneField() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 16,),
+        TextField(
+          controller: _phoneController,
+          keyboardType: TextInputType.phone,
+          decoration: InputDecoration(
+            filled: true,
+            hintText: 'Enter your phone number',
+            hintStyle: const TextStyle(
+              color: Color(0xff6A6A6A),
+              fontWeight: FontWeight.normal,
+              fontSize: 14
+            ),
+            fillColor: const Color(0xffF7F7F9),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(14),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+  
   Widget _signup(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -156,16 +218,18 @@ class Signup extends StatelessWidget {
           elevation: 0,
       ),
       onPressed: () async {
-       await AuthService().signup(
+        await AuthService().signup(
+          name: _nameController.text, // Pass name
           email: _emailController.text,
           password: _passwordController.text,
-          context: context
+          city: _cityController.text, // Pass city
+          phone: _phoneController.text, // Pass phone
+          context: context,
         );
       },
       child: const Text("Sign Up", style: TextStyle(color: Colors.white,)),
     );
   }
-
   Widget _signin(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
@@ -202,4 +266,6 @@ class Signup extends StatelessWidget {
       ),
     );
   }
+
+  // Other functions remain unchanged
 }
