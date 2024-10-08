@@ -2,7 +2,9 @@ import 'package:ecosphere/models/schedule.dart';
 import 'package:ecosphere/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'dart:async'; // Importing Timer
+import 'dart:async';
+
+import 'package:intl/intl.dart'; // Importing Timer
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -54,8 +56,46 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Schedules'),
-        backgroundColor: const Color(0xff185519),
+        centerTitle: true,
+        title: Image.asset(
+          'assets/logo.png',
+          height: 80,
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search, color: Colors.black,),
+            onPressed: () {
+              // Navigate to the SearchPage
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SearchPage()),
+              );
+            },
+          ),
+        ],
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        toolbarHeight: 100,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            margin: const EdgeInsets.only(left: 10),
+            decoration: const BoxDecoration(
+              color: Color(0xffF7F7F9),
+              shape: BoxShape.circle
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+                size: 20,
+              ),
+            ),
+          ),
+          
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -99,26 +139,47 @@ class _SearchPageState extends State<SearchPage> {
             return Column(
               children: [
                 // Search Bar
-                TextField(
-                  decoration: const InputDecoration(
-                    labelText: 'Search by Activity',
-                    prefixIcon: Icon(Icons.search),
-                    border: OutlineInputBorder(),
+                Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF9BF3D6), // Set the background color here (light green shade)
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Color.fromARGB(153, 216, 197, 197),
+                        blurRadius: 5.0,
+                        spreadRadius: 0.0,
+                        offset: Offset(0.0, 1.0),
+                      ),
+                    ],
                   ),
-                  onChanged: _onSearchChanged, // Using debounced search
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        labelText: 'Search by Activity',
+                        suffixIcon: Icon(Icons.search),    
+                        border: UnderlineInputBorder(borderSide: BorderSide.none),
+                        filled: true, // Ensure this is true to apply the background color
+                        fillColor: Colors.transparent, // Transparent fill, the background is handled by the container
+                      ),
+                      onChanged: _onSearchChanged, // Using debounced search
+                    ),
+                  ),
                 ),
+
                 const SizedBox(height: 16),
                 // Dropdown for City Filter
                 DropdownButtonFormField<String>(
                   value: _selectedCity,
                   decoration: const InputDecoration(
                     labelText: 'Sort by City',
-                    border: OutlineInputBorder(),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
                   ),
+                  borderRadius: BorderRadius.circular(20),
                   items: cities.map((city) {
                     return DropdownMenuItem(
                       value: city,
-                      child: Text(city),
+                      child: Center(child: Text(city)),
                     );
                   }).toList(),
                   onChanged: (value) {
@@ -136,30 +197,37 @@ class _SearchPageState extends State<SearchPage> {
                           itemCount: filteredSchedules.length,
                           itemBuilder: (context, index) {
                             Schedule schedule = filteredSchedules[index];
-                            return ExpansionTile(
-                              title: Text(
-                                '${schedule.date.toLocal()}'.split(' ')[0],
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
+                           return ExpansionTile(
+                            title: Text(
+                              // Format the date to show the month name and day (e.g., October 8)
+                              DateFormat('MMMM d').format(schedule.date.toLocal()), // This will format it as 'October 8'
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
                               ),
-                              children: schedule.activities.map((activity) {
-                                String svgPath =
-                                    _getSvgForActivity(activity.activity);
-                                return ListTile(
-                                  leading: SvgPicture.asset(
-                                    svgPath,
-                                    width: 40,
-                                    height: 40,
-                                    semanticsLabel: 'Waste Collection Icon',
-                                  ),
-                                  title: Text(activity.activity),
-                                  subtitle: Text(
-                                      'City: ${activity.city}  |  Collection Time: ${activity.collectionTime}'),
-                                );
-                              }).toList(),
-                            );
+                            ),
+                            children: schedule.activities.map((activity) {
+                              String svgPath = _getSvgForActivity(activity.activity);
+                              return ListTile(
+                                leading: SvgPicture.asset(
+                                  svgPath,
+                                  width: 40,
+                                  height: 40,
+                                  semanticsLabel: 'Waste Collection Icon',
+                                ),
+                                title: Text(activity.activity),
+                                subtitle: Row(
+                                  children: [
+                                    const Text('City: '),
+                                    Text(activity.city, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                    const SizedBox(width: 8.0),
+                                    const Text('Collection Time: '),
+                                    Text(activity.collectionTime, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                  ],
+                                ),
+                              );
+                            }).toList(),
+                          );
                           },
                         ),
                 ),

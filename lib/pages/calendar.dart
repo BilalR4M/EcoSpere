@@ -85,11 +85,14 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Waste Schedule', style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color(0xff185519),
+        centerTitle: true,
+        title: Image.asset(
+          'assets/logo.png',
+          height: 80,
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.white,),
+            icon: const Icon(Icons.search, color: Colors.black,),
             onPressed: () {
               // Navigate to the SearchPage
               Navigator.push(
@@ -99,6 +102,29 @@ class _CalendarPageState extends State<CalendarPage> {
             },
           ),
         ],
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        toolbarHeight: 100,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            margin: const EdgeInsets.only(left: 10),
+            decoration: const BoxDecoration(
+              color: Color(0xffF7F7F9),
+              shape: BoxShape.circle
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+                size: 20,
+              ),
+            ),
+          ),
+          
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
@@ -146,11 +172,16 @@ class _CalendarPageState extends State<CalendarPage> {
             ),
           ),
           const SizedBox(height: 8.0),
-          const Divider(),
+          Divider(
+            endIndent: 16,
+            indent: 8,
+            color: Colors.black.withOpacity(0.5),
+            thickness: 0.5,
+          ),
           const SizedBox(height: 8.0),
           const Center(
             child: Text(
-            'Schedules',
+            'Waste Schedules',
             style: TextStyle(
               color: Colors.black, 
               fontSize: 20, 
@@ -196,7 +227,6 @@ class _CalendarPageState extends State<CalendarPage> {
                               const SizedBox(width: 8.0),
                               const Text('Collection Time: '),
                               Text(collectionTime, style: const TextStyle(fontWeight: FontWeight.bold)),
-                              
                             ],
                           ),
                         ),
