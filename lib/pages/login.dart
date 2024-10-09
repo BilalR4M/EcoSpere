@@ -13,7 +13,6 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         centerTitle: true,
@@ -24,24 +23,7 @@ class Login extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 100,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            margin: const EdgeInsets.only(left: 10),
-            decoration: const BoxDecoration(
-              color: Color(0xffF7F7F9),
-              shape: BoxShape.circle
-            ),
-            child: const Center(
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
+        automaticallyImplyLeading: false,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -54,7 +36,7 @@ class Login extends StatelessWidget {
                 child: Text(
                   'Welcome Back',
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Color(0xff185519),
                       fontWeight: FontWeight.w700,
                       fontSize: 32
                     )
@@ -101,11 +83,12 @@ class Login extends StatelessWidget {
               fontWeight: FontWeight.w400,
               fontSize: 14
             ),
-            fillColor: const Color(0xffF7F7F9) ,
+            fillColor: const Color.fromARGB(255, 255, 255, 255) ,
+          
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(14)
-            )
+              borderRadius: BorderRadius.circular(14),
+            ),
           ),
         )
       ],
@@ -137,7 +120,7 @@ class Login extends StatelessWidget {
               fontWeight: FontWeight.normal,
               fontSize: 14
             ),
-            fillColor: const Color(0xffF7F7F9) ,
+            fillColor: const Color.fromARGB(255, 255, 255, 255) ,
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(14)

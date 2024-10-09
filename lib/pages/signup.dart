@@ -17,7 +17,6 @@ class Signup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         centerTitle: true,
@@ -52,7 +51,14 @@ class Signup extends StatelessWidget {
          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
           child: Column(
             children: [
-              
+              const Text(
+                'Get Started 🍃',
+                style: TextStyle(
+                    color:Color(0xff185519),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 32
+                  )
+              ),
               const SizedBox(height: 64),
               _nameField(),
               _cityField(), // Add city field
@@ -67,6 +73,7 @@ class Signup extends StatelessWidget {
           ),
         ),
       )
+
     );
   }
 
@@ -86,7 +93,7 @@ class Signup extends StatelessWidget {
               fontWeight: FontWeight.normal,
               fontSize: 14
             ),
-            fillColor: const Color(0xffF7F7F9),
+            fillColor: const Color.fromARGB(255, 255, 255, 255),
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(14),
@@ -113,7 +120,7 @@ class Signup extends StatelessWidget {
               fontWeight: FontWeight.normal,
               fontSize: 14
             ),
-            fillColor: const Color(0xffF7F7F9) ,
+            fillColor: const Color.fromARGB(255, 255, 255, 255) ,
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(14)
@@ -123,6 +130,9 @@ class Signup extends StatelessWidget {
       ],
     );
   }
+
+
+
 
   Widget _password() {
     return Column(
@@ -141,7 +151,7 @@ class Signup extends StatelessWidget {
               fontWeight: FontWeight.normal,
               fontSize: 14
             ),
-            fillColor: const Color(0xffF7F7F9) ,
+            fillColor: const Color.fromARGB(255, 255, 255, 255) ,
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(14)
@@ -168,7 +178,7 @@ class Signup extends StatelessWidget {
               fontWeight: FontWeight.normal,
               fontSize: 14
             ),
-            fillColor: const Color(0xffF7F7F9),
+            fillColor: const Color.fromARGB(255, 255, 255, 255),
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(14),
@@ -196,7 +206,7 @@ class Signup extends StatelessWidget {
               fontWeight: FontWeight.normal,
               fontSize: 14
             ),
-            fillColor: const Color(0xffF7F7F9),
+            fillColor: const Color.fromARGB(255, 255, 255, 255),
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(14),
@@ -267,5 +277,5 @@ class Signup extends StatelessWidget {
     );
   }
 
-  // Other functions remain unchanged
+  
 }

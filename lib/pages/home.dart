@@ -36,6 +36,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 100,
+        leading: null,
       ),
       body: SafeArea(
         child: Padding(
@@ -73,6 +74,24 @@ class _HomeState extends State<Home> {
                 },
                 child: const Text(
                   "View Profile",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 30,),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xff185519),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  minimumSize: const Size(double.infinity, 60),
+                  elevation: 0,
+                ),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/greenthehome');
+                },
+                child: const Text(
+                  "Green the home",
                   style: TextStyle(color: Colors.white),
                 ),
               ),

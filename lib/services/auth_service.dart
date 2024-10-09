@@ -54,13 +54,14 @@ class AuthService {
         message = 'An account already exists with that email.';
       }
       Fluttertoast.showToast(
-        msg: message,
+        msg: message.isNotEmpty ? message : "Something went wrong. Please try again.", // Ensure message is not empty
         toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.SNACKBAR,
-        backgroundColor: Colors.black54,
-        textColor: Colors.white,
-        fontSize: 14.0,
+        gravity: ToastGravity.BOTTOM,   // Display toast at the bottom of the screen (adjust as needed)
+        backgroundColor: Colors.black54, // Toast background color
+        textColor: Colors.white,         // Text color
+        fontSize: 16.0,                  // Text size to be more readable
       );
+
     } catch (e) {
       log(e.toString());
     }
@@ -95,14 +96,15 @@ class AuthService {
       } else if (e.code == 'invalid-credential') {
         message = 'Wrong password provided for that user.';
       }
-       Fluttertoast.showToast(
-        msg: message,
+      Fluttertoast.showToast(
+        msg: message.isNotEmpty ? message : "Something went wrong. Please try again.", // Ensure message is not empty
         toastLength: Toast.LENGTH_LONG,
-        gravity: ToastGravity.SNACKBAR,
-        backgroundColor: Colors.black54,
-        textColor: Colors.white,
-        fontSize: 14.0,
+        gravity: ToastGravity.BOTTOM,   // Display toast at the bottom of the screen (adjust as needed)
+        backgroundColor: Colors.black54, // Toast background color
+        textColor: Colors.white,         // Text color
+        fontSize: 16.0,                  // Text size to be more readable
       );
+
     }
     catch(e){
       log(e.toString());
