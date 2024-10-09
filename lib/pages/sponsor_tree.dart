@@ -21,6 +21,7 @@ class SponsorTreePage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            const SizedBox(height: 16), // Add this line
             // Image Placeholder
             Container(
               height: 180,
@@ -37,7 +38,7 @@ class SponsorTreePage extends StatelessWidget {
                 child: SizedBox.shrink(),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 24),
 
             // Description text
             Text(
