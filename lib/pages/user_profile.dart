@@ -7,6 +7,7 @@ class UserProfilePage extends StatefulWidget {
   const UserProfilePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _UserProfilePageState createState() => _UserProfilePageState();
 }
 
@@ -43,6 +44,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
         }
       }
     } catch (e) {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error loading profile: $e")));
     }
 

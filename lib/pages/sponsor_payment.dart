@@ -146,6 +146,7 @@ class SponsorPaymentPage extends StatelessWidget {
 
         // Show success dialog
         showDialog(
+          // ignore: use_build_context_synchronously
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
@@ -171,6 +172,7 @@ class SponsorPaymentPage extends StatelessWidget {
       }
     } catch (e) {
       // Handle any errors that occur during the saving process
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );

@@ -38,7 +38,7 @@ class Ecosphere extends StatelessWidget {
         '/user_profile': (context) => const UserProfilePage(), // Define the user profile route
         '/sponsor': (context) => const SponsorPage(), // Define the sponsor route
         '/sponsor_overview': (context) => const SponsorOverviewPage(), // Define the sponsor overview route
-        '/sponsorpage': (context) => SponsorTreePage(), // Define the sponsor tree route
+        '/sponsorpage': (context) => const SponsorTreePage(), // Define the sponsor tree route
         '/mytrees': (context) => const MyTreesPage(), // Define the my trees route
       },
       onUnknownRoute: (settings) {

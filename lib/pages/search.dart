@@ -1,9 +1,9 @@
+import 'package:ecosphere/models/activity.dart';
 import 'package:ecosphere/models/schedule.dart';
 import 'package:ecosphere/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:async';
-
 import 'package:intl/intl.dart'; // Importing Timer
 
 class SearchPage extends StatefulWidget {
@@ -48,6 +48,12 @@ class _SearchPageState extends State<SearchPage> {
         return 'assets/icons/battery_waste.svg';
       case 'Plastics Recycling Collection':
         return 'assets/icons/plastics_recycling.svg';
+      case 'Organic Waste Collection':
+        return 'assets/icons/organic.svg';
+      case 'Hazardous Waste Collection':
+        return 'assets/icons/hazardous.svg';
+      case 'Medical Waste Collection':
+        return 'assets/icons/medical.svg';
       default:
         return 'assets/icons/default_waste.svg'; // Fallback icon
     }
@@ -95,7 +101,6 @@ class _SearchPageState extends State<SearchPage> {
               ),
             ),
           ),
-          
         ),
       ),
       body: Padding(
@@ -127,14 +132,19 @@ class _SearchPageState extends State<SearchPage> {
             List<String> cities = ['All', ...citySet];
 
             // Apply filters
-            List<Schedule> filteredSchedules = schedules.where((schedule) {
-              bool matchesCity = _selectedCity == 'All' ||
-                  schedule.activities.any((activity) => activity.city == _selectedCity);
-              bool matchesSearch = _searchQuery.isEmpty ||
-                  schedule.activities.any((activity) => activity.activity
-                      .toLowerCase()
-                      .contains(_searchQuery.toLowerCase()));
-              return matchesCity && matchesSearch;
+            List<Schedule> filteredSchedules = schedules.map((schedule) {
+              // Filter activities within each schedule
+              List<Activity> filteredActivities = schedule.activities.where((activity) {
+                bool matchesCity = _selectedCity == 'All' || activity.city == _selectedCity;
+                bool matchesSearch = _searchQuery.isEmpty || activity.activity.toLowerCase().contains(_searchQuery.toLowerCase());
+                return matchesCity && matchesSearch;
+              }).toList();
+
+              return Schedule(
+                id: schedule.id,
+                date: schedule.date,
+                activities: filteredActivities, 
+              );
             }).toList();
 
             return Column(
@@ -198,37 +208,43 @@ class _SearchPageState extends State<SearchPage> {
                           itemCount: filteredSchedules.length,
                           itemBuilder: (context, index) {
                             Schedule schedule = filteredSchedules[index];
-                           return ExpansionTile(
-                            title: Text(
-                              // Format the date to show the month name and day (e.g., October 8)
-                              DateFormat('MMMM d').format(schedule.date.toLocal()), // This will format it as 'October 8'
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
+
+                            // If there are no activities after filtering, don't display the date
+                            if (schedule.activities.isEmpty) {
+                              return const SizedBox.shrink();
+                            }
+
+                            return ExpansionTile(
+                              title: Text(
+                                // Format the date to show the month name and day (e.g., October 8)
+                                DateFormat('MMMM d').format(schedule.date.toLocal()), // This will format it as 'October 8'
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
                               ),
-                            ),
-                            children: schedule.activities.map((activity) {
-                              String svgPath = _getSvgForActivity(activity.activity);
-                              return ListTile(
-                                leading: SvgPicture.asset(
-                                  svgPath,
-                                  width: 40,
-                                  height: 40,
-                                  semanticsLabel: 'Waste Collection Icon',
-                                ),
-                                title: Text(activity.activity),
-                                subtitle: Row(
-                                  children: [
-                                    const Text('City: '),
-                                    Text(activity.city, style: const TextStyle(fontWeight: FontWeight.bold)),
-                                    const SizedBox(width: 8.0),
-                                    const Text('Collection Time: '),
-                                    Text(activity.collectionTime, style: const TextStyle(fontWeight: FontWeight.bold)),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                          );
+                              children: schedule.activities.map((activity) {
+                                String svgPath = _getSvgForActivity(activity.activity);
+                                return ListTile(
+                                  leading: SvgPicture.asset(
+                                    svgPath,
+                                    width: 40,
+                                    height: 40,
+                                    semanticsLabel: 'Waste Collection Icon',
+                                  ),
+                                  title: Text(activity.activity),
+                                  subtitle: Row(
+                                    children: [
+                                      const Text('City: '),
+                                      Text(activity.city, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                      const SizedBox(width: 8.0),
+                                      const Text('Collection Time: '),
+                                      Text(activity.collectionTime, style: const TextStyle(fontWeight: FontWeight.bold)),
+                                    ],
+                                  ),
+                                );
+                              }).toList(),
+                            );
                           },
                         ),
                 ),

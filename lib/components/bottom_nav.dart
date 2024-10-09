@@ -7,9 +7,10 @@ import 'package:ecosphere/pages/user_profile.dart';
 class BottomNav extends StatefulWidget {
   final int currentIndex;
 
-  const BottomNav({Key? key, required this.currentIndex}) : super(key: key);
+  const BottomNav({super.key, required this.currentIndex});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BottomNavState createState() => _BottomNavState();
 }
 

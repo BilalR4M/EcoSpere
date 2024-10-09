@@ -7,12 +7,12 @@ class TreeDetailsPage extends StatelessWidget {
   final String treeImage;
 
   const TreeDetailsPage({
-    Key? key,
+    super.key,
     required this.treeName,
     required this.city,
     required this.status,
     required this.treeImage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

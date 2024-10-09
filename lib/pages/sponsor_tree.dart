@@ -2,7 +2,10 @@ import 'package:ecosphere/pages/sponsor_payment.dart';
 import 'package:flutter/material.dart';
 
 class SponsorTreePage extends StatefulWidget {
+  const SponsorTreePage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _SponsorTreePageState createState() => _SponsorTreePageState();
 }
 

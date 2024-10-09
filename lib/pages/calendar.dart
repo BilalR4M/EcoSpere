@@ -15,6 +15,7 @@ class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CalendarPageState createState() => _CalendarPageState();
 }
 
@@ -73,6 +74,12 @@ class _CalendarPageState extends State<CalendarPage> {
         return 'assets/icons/battery_waste.svg';
       case 'Plastics Recycling Collection':
         return 'assets/icons/plastics_recycling.svg';
+      case 'Organic Waste Collection':
+        return 'assets/icons/organic.svg';
+      case 'Hazardous Waste Collection':
+        return 'assets/icons/hazardous.svg';
+      case 'Medical Waste Collection':
+        return 'assets/icons/medical.svg';
       default:
         return 'assets/icons/default_waste.svg'; 
     }
