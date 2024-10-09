@@ -1,123 +1,208 @@
+import 'package:ecosphere/pages/sponsor_payment.dart';
 import 'package:flutter/material.dart';
 
-class SponsorTreePage extends StatelessWidget {
-  const SponsorTreePage({super.key});
+class SponsorTreePage extends StatefulWidget {
+  @override
+  _SponsorTreePageState createState() => _SponsorTreePageState();
+}
+
+class _SponsorTreePageState extends State<SponsorTreePage> {
+  final List<String> cities = ['City 1', 'City 2', 'City 3', 'City 4'];
+  String? selectedCity;
+  final Map<String, bool> selectedTrees = {
+    'Tree 1 - 5000': false,
+    'Tree 2 - 7500': false,
+    'Tree 3 - 10000': false,
+    'Tree 4 - 15000': false,
+  };
+
+  final Map<String, String> treeImages = {
+    'Tree 1 - 5000': 'assets/images/tree1.png',
+    'Tree 2 - 7500': 'assets/images/tree2.png',
+    'Tree 3 - 10000': 'assets/images/tree3.png',
+    'Tree 4 - 15000': 'assets/images/tree4.png',
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Sponsor', style: TextStyle(color:Color(0xff185519), fontSize: 24, fontWeight: FontWeight.bold)),
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        title: const Text(
-          'Sponsor A Tree',
-          style: TextStyle(fontWeight: FontWeight.w700),
-        ),
-        centerTitle: true,
+        backgroundColor: Colors.white,
       ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 16), // Add this line
-            // Image Placeholder
-            Container(
-              height: 180,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.green.shade100,
-                borderRadius: BorderRadius.circular(12),
-                image: const DecorationImage(
-                  image: AssetImage('assets/images/sponsor.png'),
-                  fit: BoxFit.cover,
-                ),
+            // Dropdown for City Selection
+            DropdownButtonFormField<String>(
+              decoration: const InputDecoration(
+                labelText: 'Select City',
+                border: OutlineInputBorder(),
               ),
-              child: const Center(
-                child: SizedBox.shrink(),
-              ),
+              value: selectedCity,
+              items: cities.map((city) {
+                return DropdownMenuItem(
+                  value: city,
+                  child: Text(city),
+                );
+              }).toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedCity = value;
+                });
+              },
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 20),
 
-            // Description text
-            Text(
-              'Make a lasting impact by sponsoring a tree in your community. With EcoSphere, you can reserve a space for a tree that grows in your name, helping to green your city and combat climate change. Receive updates on its growth and celebrate the difference you"re making for the environment.',
-              textAlign: TextAlign.justify,
-              style: TextStyle(fontSize: 16, color: Colors.grey.shade800),
+            // Text for Tree Selection
+            const Text(
+              'Select Tree',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 10),
+
+            // GridView for Tree Images with Checkboxes
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 1.0,
+                ),
+                itemCount: selectedTrees.keys.length,
+                itemBuilder: (context, index) {
+                  String tree = selectedTrees.keys.elementAt(index);
+                  return Stack(
+                    children: [
+                      // Tree Image with rounded corners
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedTrees[tree] = !selectedTrees[tree]!;
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: selectedTrees[tree]!
+                                  ? Colors.green
+                                  : Colors.transparent,
+                              width: 3,
+                            ),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.asset(
+                              treeImages[tree]!,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      // Checkbox in the top right corner
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: Checkbox(
+                          value: selectedTrees[tree],
+                          onChanged: (bool? value) {
+                            setState(() {
+                              selectedTrees[tree] = value!;
+                            });
+                          },
+                        ),
+                      ),
+
+                      // Tree label
+                      Positioned(
+                        bottom: 8,
+                        left: 8,
+                        right: 8,
+                        child: Text(
+                          tree.split(' - ')[0], // Display Tree 1, Tree 2, etc.
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff185519),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
 
             // Sponsor Button
-            SizedBox(
-              width: double.infinity,
+            Center(
               child: ElevatedButton.icon(
-                onPressed: () {},
+                onPressed: selectedCity != null
+                    ? () {
+                        // Logic to navigate to Payment page
+                        List<String> sponsoredTrees = selectedTrees.entries
+                            .where((element) => element.value)
+                            .map((e) => e.key)
+                            .toList();
+                        int totalAmount = calculateTotalAmount(sponsoredTrees);
+
+                        // Navigate to Payment Page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SponsorPaymentPage(
+                              city: selectedCity!,
+                              trees: sponsoredTrees,
+                              totalAmount: totalAmount,
+                            ),
+                          ),
+                        );
+                      }
+                    : null, // Disable button if city not selected
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
                   backgroundColor: const Color(0xff185519),
                   textStyle: const TextStyle(fontSize: 18),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
+                  fixedSize: const Size(200.0, 50.0), // Adjust width and height as needed
                 ),
                 icon: const Icon(Icons.spa, color: Colors.white),
                 label: const Text('Sponsor', style: TextStyle(color: Colors.white)),
               ),
             ),
-            const SizedBox(height: 16),
-
-            // Program Overview Button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: const Color(0xff185519), // Same background color as Sponsor
-                  textStyle: const TextStyle(fontSize: 18),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                icon: const Icon(Icons.info, color: Colors.white),
-                label: const Text('Program Overview', style: TextStyle(color: Colors.white)),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // My Trees Button
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  backgroundColor: const Color(0xff185519), // Same background color as the others
-                  textStyle: const TextStyle(fontSize: 18),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                icon: const Icon(Icons.nature, color: Colors.white),
-                label: const Text('My Trees', style: TextStyle(color: Colors.white)),
-              ),
-            ),
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications_active_outlined), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-      ),
     );
+  }
+
+  int calculateTotalAmount(List<String> trees) {
+    int total = 0;
+    for (String tree in trees) {
+      if (tree.contains('5000')) {
+        total += 5000;
+      } else if (tree.contains('7500')) {
+        total += 7500;
+      } else if (tree.contains('10000')) {
+        total += 10000;
+      } else if (tree.contains('15000')) {
+        total += 15000;
+      }
+    }
+    return total;
   }
 }
