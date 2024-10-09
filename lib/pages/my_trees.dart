@@ -29,11 +29,24 @@ class MyTreesPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
+        leading: GestureDetector(
+          onTap: () {
             Navigator.pop(context);
           },
+          child: Container(
+            margin: const EdgeInsets.only(left: 10),
+            decoration: const BoxDecoration(
+              color: Color(0xffF7F7F9),
+              shape: BoxShape.circle
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+                size: 20,
+              ),
+            ),
+          ),
         ),
         title: const Text(
           'My Trees',
@@ -118,11 +131,11 @@ class MyTreesPage extends StatelessWidget {
                           status,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: status == 'Healthy'
+                            color: status == 'healthy'
                                 ? Colors.green
-                                : status == 'Good'
+                                : status == 'good'
                                     ? Colors.orange
-                                    : Colors.red,
+                                    : Colors.red, // Default color for other statuses
                           ),
                         ),
                       ],
@@ -133,18 +146,6 @@ class MyTreesPage extends StatelessWidget {
             },
           );
         },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications_active_outlined), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
       ),
     );
   }

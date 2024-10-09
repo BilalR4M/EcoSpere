@@ -67,9 +67,9 @@ class TreeDetailsPage extends StatelessWidget {
                       status,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: status == 'Healthy'
+                        color: status == 'healthy'
                             ? Colors.green
-                            : status == 'Good'
+                            : status == 'good'
                                 ? Colors.orange
                                 : Colors.red,
                       ),

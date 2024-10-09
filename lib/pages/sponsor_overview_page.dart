@@ -115,47 +115,6 @@ class SponsorOverviewPage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: 0, // Change this based on the active page
-        selectedItemColor: const Color(0xff185519),
-        unselectedItemColor: const Color(0xffB9B9B9),
-        items: const [
-          BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: 'Home',
-          ),
-          BottomNavigationBarItem(
-        icon: Icon(Icons.calendar_month),
-        label: 'Calendar',
-          ),
-          BottomNavigationBarItem(
-        icon: Icon(Icons.notifications),
-        label: 'Notifications',
-          ),
-          BottomNavigationBarItem(
-        icon: Icon(Icons.person),
-        label: 'Profile',
-          ),
-        ],
-        onTap: (index) {
-          // Handle navigation based on the tapped item
-          switch (index) {
-        case 0:
-          Navigator.pushNamed(context, '/home');
-          break;
-        case 1:
-          Navigator.pushNamed(context, '/calendar');
-          break;
-        case 2:
-          Navigator.pushNamed(context, '/notifications');
-          break;
-        case 3:
-          Navigator.pushNamed(context, '/profile');
-          break;
-          }
-        },
-            )
     );
   }
 

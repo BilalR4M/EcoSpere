@@ -29,11 +29,24 @@ class _SponsorTreePageState extends State<SponsorTreePage> {
       appBar: AppBar(
         title: const Text('Sponsor', style: TextStyle(color:Color(0xff185519), fontSize: 24, fontWeight: FontWeight.bold)),
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
+        leading: GestureDetector(
+          onTap: () {
             Navigator.pop(context);
           },
+          child: Container(
+            margin: const EdgeInsets.only(left: 10),
+            decoration: const BoxDecoration(
+              color: Color(0xffF7F7F9),
+              shape: BoxShape.circle
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+                size: 20,
+              ),
+            ),
+          ),
         ),
         backgroundColor: Colors.white,
       ),
@@ -94,7 +107,7 @@ class _SponsorTreePageState extends State<SponsorTreePage> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(22),
                             border: Border.all(
                               color: selectedTrees[tree]!
                                   ? Colors.green
@@ -103,7 +116,7 @@ class _SponsorTreePageState extends State<SponsorTreePage> {
                             ),
                           ),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(20),
                             child: Image.asset(
                               treeImages[tree]!,
                               fit: BoxFit.cover,
@@ -114,8 +127,8 @@ class _SponsorTreePageState extends State<SponsorTreePage> {
 
                       // Checkbox in the top right corner
                       Positioned(
-                        top: 8,
-                        right: 8,
+                        top: 0,
+                        right: 30,
                         child: Checkbox(
                           value: selectedTrees[tree],
                           onChanged: (bool? value) {
@@ -128,9 +141,8 @@ class _SponsorTreePageState extends State<SponsorTreePage> {
 
                       // Tree label
                       Positioned(
-                        bottom: 8,
-                        left: 8,
-                        right: 8,
+                        bottom: 50,
+                        left: 35,
                         child: Text(
                           tree.split(' - ')[0], // Display Tree 1, Tree 2, etc.
                           style: const TextStyle(

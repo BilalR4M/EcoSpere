@@ -1,7 +1,7 @@
-// lib/pages/calendar_page.dart
-
-
+import 'package:ecosphere/pages/home.dart';
+import 'package:ecosphere/pages/notifications.dart';
 import 'package:ecosphere/pages/search.dart';
+import 'package:ecosphere/pages/user_profile.dart';
 import 'package:ecosphere/src/add_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,11 +15,11 @@ class CalendarPage extends StatefulWidget {
   const CalendarPage({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _CalendarPageState createState() => _CalendarPageState();
 }
 
 class _CalendarPageState extends State<CalendarPage> {
+  int _currentIndex = 1; // Set index to 1 for the Calendar page
   CalendarFormat _calendarFormat = CalendarFormat.week;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -34,12 +34,10 @@ class _CalendarPageState extends State<CalendarPage> {
   }
   
   String getFormattedDay() {
-    // If a day is selected, show its day name, otherwise show "Today"
-  return _selectedDay != null 
+    return _selectedDay != null 
       ? DateFormat('EEEE').format(_selectedDay!) 
       : 'Today';
   }
-
 
   Future<void> _fetchSchedules() async {
     List<Schedule> schedules = await _firestoreService.getAllSchedules();
@@ -65,7 +63,6 @@ class _CalendarPageState extends State<CalendarPage> {
     return _events[DateTime(day.year, day.month, day.day)] ?? [];
   }
 
-  /// Helper function to get the SVG path based on the waste collection type
   String _getSvgForActivity(String activity) {
     switch (activity) {
       case 'Recyclable Waste Collection':
@@ -76,11 +73,17 @@ class _CalendarPageState extends State<CalendarPage> {
         return 'assets/icons/battery_waste.svg';
       case 'Plastics Recycling Collection':
         return 'assets/icons/plastics_recycling.svg';
-      // Add more cases for other activity types
       default:
-        return 'assets/icons/default_waste.svg'; // Fallback icon
+        return 'assets/icons/default_waste.svg'; 
     }
   }
+
+  final List<Widget> _pages = [
+    const Home(), 
+    const CalendarPage(),  
+    const NotificationsPage(),
+    const UserProfilePage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +98,6 @@ class _CalendarPageState extends State<CalendarPage> {
           IconButton(
             icon: const Icon(Icons.search, color: Colors.black,),
             onPressed: () {
-              // Navigate to the SearchPage
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const SearchPage()),
@@ -124,7 +126,6 @@ class _CalendarPageState extends State<CalendarPage> {
               ),
             ),
           ),
-          
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -187,7 +188,8 @@ class _CalendarPageState extends State<CalendarPage> {
               color: Colors.black, 
               fontSize: 20, 
               fontWeight: FontWeight.bold,
-            ),)),
+            ),
+          )),
           const SizedBox(height: 8.0),
           Expanded(
             child: _getEventsForDay(_selectedDay ?? _focusedDay).isEmpty
@@ -195,28 +197,25 @@ class _CalendarPageState extends State<CalendarPage> {
                 : ListView(
                     padding: const EdgeInsets.all(8.0),
                     children: _getEventsForDay(_selectedDay ?? _focusedDay).map((event) {
-                      // Assuming `event` is a String in the format 'activity in city at collectionTime'
                       final parts = event.split(' in ');
                       final activity = parts[0];
                       final cityAndTime = parts[1].split(' at ');
                       final city = cityAndTime[0];
                       final collectionTime = cityAndTime[1];
                       
-                      // Select an SVG asset based on the activity
-                      String svgPath = _getSvgForActivity(activity); // Helper function
+                      String svgPath = _getSvgForActivity(activity); 
 
                       return Container(
-                        margin: const EdgeInsets.symmetric(vertical: 4.0), // Margin between the containers
-                        padding: const EdgeInsets.all(4.0), // Padding inside the container
+                        margin: const EdgeInsets.symmetric(vertical: 4.0), 
+                        padding: const EdgeInsets.all(4.0), 
                         decoration: BoxDecoration(
-
-                          color: const Color(0xFF9BF3D6), // Background color
-                          borderRadius: BorderRadius.circular(20), // Rounded corners with radius 10
+                          color: const Color(0xFF9BF3D6),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         child: ListTile(
                           leading: SvgPicture.asset(
                             svgPath,
-                            width: 40, // Set the size of the SVG icon
+                            width: 40, 
                             height: 40,
                             semanticsLabel: 'Waste Collection Icon',
                           ),
@@ -235,7 +234,38 @@ class _CalendarPageState extends State<CalendarPage> {
                     }).toList(),
                   )
           )
-  
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (int index) {
+          setState(() {
+            _currentIndex = index;
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => _pages[index]),
+            );
+          });
+        },
+        selectedItemColor: const Color(0xff276027),
+        unselectedItemColor: const Color(0xffB9B9B9),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_month),
+            label: 'Calendar',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications),
+            label: 'Notifications',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
         ],
       ),
     );

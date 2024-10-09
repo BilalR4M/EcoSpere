@@ -78,8 +78,27 @@ class _EditUserProfilePageState extends State<EditUserProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('User Profile'),
-        centerTitle: true,
+        title: const Text('User Profile', style: TextStyle(color: Color(0xff276027), fontWeight: FontWeight.w700)),
+        centerTitle: true,   
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            margin: const EdgeInsets.only(left: 10),
+            decoration: const BoxDecoration(
+              color: Color(0xffF7F7F9),
+              shape: BoxShape.circle
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+                size: 20,
+              ),
+            ),
+          ),
+        ),
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -94,11 +113,13 @@ class _EditUserProfilePageState extends State<EditUserProfilePage> {
                   const SizedBox(height: 16),
                   _buildTextField('Phone', _phoneController),
                   const SizedBox(height: 32),
-                  SizedBox(
-                    width: double.infinity,
+                  Center(
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xff276027), // Background color
+                      ),
                       onPressed: _updateUserData,
-                      child: const Text('Save Changes'),
+                      child: const Text('Save Changes', style: TextStyle(color: Colors.white,)),
                     ),
                   ),
                 ],

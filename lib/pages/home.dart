@@ -1,4 +1,5 @@
 import 'package:ecosphere/pages/calendar.dart';
+import 'package:ecosphere/pages/notifications.dart';
 import 'package:ecosphere/pages/user_profile.dart';
 import 'package:ecosphere/services/auth_service.dart';
 import 'package:ecosphere/src/namewidget.dart';
@@ -34,25 +35,6 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 100,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            margin: const EdgeInsets.only(left: 10),
-            decoration: const BoxDecoration(
-              color: Color(0xffF7F7F9),
-              shape: BoxShape.circle,
-            ),
-            child: const Center(
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-                size: 20,
-              ),
-            ),
-          ),
-        ),
       ),
       body: SafeArea(
         child: Padding(
@@ -192,18 +174,4 @@ class _HomeState extends State<Home> {
 }
 
 // D
-
-class NotificationsPage extends StatelessWidget {
-  const NotificationsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Notifications')),
-      body: const Center(
-        child: Text('Notifications Page'),
-      ),
-    );
-  }
-}
 

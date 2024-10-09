@@ -15,11 +15,24 @@ class SponsorPaymentPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Sponsor', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xff185519)), ),
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
+        leading: GestureDetector(
+          onTap: () {
             Navigator.pop(context);
           },
+          child: Container(
+            margin: const EdgeInsets.only(left: 10),
+            decoration: const BoxDecoration(
+              color: Color(0xffF7F7F9),
+              shape: BoxShape.circle
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+                size: 20,
+              ),
+            ),
+          ),
         ),
       ),
       body: Padding(
