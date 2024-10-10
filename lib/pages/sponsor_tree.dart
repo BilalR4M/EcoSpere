@@ -30,28 +30,23 @@ class _SponsorTreePageState extends State<SponsorTreePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sponsor', style: TextStyle(color:Color(0xff185519), fontSize: 24, fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Container(
-            margin: const EdgeInsets.only(left: 10),
-            decoration: const BoxDecoration(
-              color: Color(0xffF7F7F9),
-              shape: BoxShape.circle
-            ),
-            child: const Center(
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-                size: 20,
-              ),
-            ),
+        title: const Text(
+          'Sponsor Trees',
+          style: TextStyle(
+            color: Color(0xff185519),
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
           ),
         ),
+        centerTitle: true,
         backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       backgroundColor: Colors.white,
       body: Padding(
@@ -59,17 +54,55 @@ class _SponsorTreePageState extends State<SponsorTreePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 16), // Add this line
             // Dropdown for City Selection
             DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Select City',
-                border: OutlineInputBorder(),
+                labelStyle: const TextStyle(
+                  fontSize: 18,
+                  color: Color(0xff228B22), // Darker green for label
+                  fontWeight: FontWeight.bold,
+                ),
+                filled: true,
+                fillColor: const Color(0xffE8F5E9), // Light green background
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: const Color(0xff66BB6A), // Light green border when enabled
+                    width: 2.0,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    color: const Color(0xff43A047), // Darker green border when focused
+                    width: 2.0,
+                  ),
+                ),
+                contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               ),
+              dropdownColor: const Color(0xffE8F5E9), // Dropdown menu background color (light green)
               value: selectedCity,
+              icon: const Icon(
+                Icons.arrow_drop_down, // Dropdown arrow icon
+                color: Color(0xff388E3C), // Green icon color
+              ),
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black87, // Text color inside dropdown
+                fontWeight: FontWeight.w500,
+              ),
               items: cities.map((city) {
                 return DropdownMenuItem(
                   value: city,
-                  child: Text(city),
+                  child: Text(
+                    city,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Color(0xff2E7D32), // Darker green for dropdown text
+                    ),
+                  ),
                 );
               }).toList(),
               onChanged: (value) {
@@ -78,12 +111,12 @@ class _SponsorTreePageState extends State<SponsorTreePage> {
                 });
               },
             ),
-            const SizedBox(height: 20),
 
+            const SizedBox(height: 20),
             // Text for Tree Selection
             const Text(
               'Select Tree',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xff185519)),
             ),
             const SizedBox(height: 10),
 
@@ -94,80 +127,108 @@ class _SponsorTreePageState extends State<SponsorTreePage> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
-                  childAspectRatio: 1.0,
+                  childAspectRatio: 0.9,
                 ),
                 itemCount: selectedTrees.keys.length,
                 itemBuilder: (context, index) {
                   String tree = selectedTrees.keys.elementAt(index);
-                  return Stack(
-                    children: [
-                      // Tree Image with rounded corners
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedTrees[tree] = !selectedTrees[tree]!;
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(22),
-                            border: Border.all(
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedTrees[tree] = !selectedTrees[tree]!;
+                      });
+                    },
+                    child: Stack(
+                      children: [
+                        // Tree Image with rounded corners and shadow
+                        Positioned(
+                          top: 10,
+                          left: 10,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              border: Border.all(
+                                color: selectedTrees[tree]!
+                                    ? Colors.green.shade400
+                                    : Colors.transparent,
+                                width: 3,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.green.withOpacity(0.3),
+                                  blurRadius: 5,
+                                  offset: const Offset(0.5, 2),
+                                ),
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16),
+                              child: Image.asset(
+                                treeImages[tree]!,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        // Checkbox in the top right corner
+                        Positioned(
+                          
+                          right: 30,
+                          child: Container(
+                            decoration: BoxDecoration(
                               color: selectedTrees[tree]!
-                                  ? Colors.green
-                                  : Colors.transparent,
-                              width: 3,
+                                  ? Colors.green.shade400
+                                  : Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              selectedTrees[tree]!
+                                  ? Icons.check_circle
+                                  : Icons.circle_outlined,
+                              color: selectedTrees[tree]!
+                                  ? Colors.white
+                                  : Colors.grey,
+                              size: 26,
                             ),
                           ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.asset(
-                              treeImages[tree]!,
-                              fit: BoxFit.cover,
+                        ),
+
+                        // Tree label
+                        Positioned(
+                          bottom: 60,
+                          left: 40,
+                          child: Text(
+                            tree.split(' - ')[0], // Display Tree 1, Tree 2, etc.
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff185519),
+                              shadows: [
+                                Shadow(
+                                  color: Colors.black26,
+                                  offset: Offset(0, 1),
+                                  blurRadius: 3,
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                      ),
-
-                      // Checkbox in the top right corner
-                      Positioned(
-                        top: 0,
-                        right: 30,
-                        child: Checkbox(
-                          value: selectedTrees[tree],
-                          onChanged: (bool? value) {
-                            setState(() {
-                              selectedTrees[tree] = value!;
-                            });
-                          },
-                        ),
-                      ),
-
-                      // Tree label
-                      Positioned(
-                        bottom: 50,
-                        left: 35,
-                        child: Text(
-                          tree.split(' - ')[0], // Display Tree 1, Tree 2, etc.
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff185519),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 },
               ),
             ),
 
+            // Spacer
+            const SizedBox(height: 20),
+
             // Sponsor Button
             Center(
-              child: ElevatedButton.icon(
+              child: ElevatedButton(
                 onPressed: selectedCity != null
                     ? () {
-                        // Logic to navigate to Payment page
                         List<String> sponsoredTrees = selectedTrees.entries
                             .where((element) => element.value)
                             .map((e) => e.key)
@@ -186,19 +247,41 @@ class _SponsorTreePageState extends State<SponsorTreePage> {
                           ),
                         );
                       }
-                    : null, // Disable button if city not selected
+                    : null, // Disable button if no city selected
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff185519),
-                  textStyle: const TextStyle(fontSize: 18),
+                  backgroundColor: const Color(0xff185519), // Dark green color for background
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(16), // Rounded corners
                   ),
-                  fixedSize: const Size(200.0, 50.0), // Adjust width and height as needed
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 16,
+                  ),
+                  textStyle: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  shadowColor: Colors.greenAccent, // Light green shadow for emphasis
+                  elevation: 5,
                 ),
-                icon: const Icon(Icons.spa, color: Colors.white),
-                label: const Text('Sponsor', style: TextStyle(color: Colors.white)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      'Sponsor Now',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(width: 8), // Space between text and icon
+                    Icon(
+                      Icons.double_arrow, // Right arrow icon
+                      color: Colors.white,  // White icon color to match text
+                      size: 24,            // Icon size
+                    ),
+                  ],
+                ),
               ),
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),

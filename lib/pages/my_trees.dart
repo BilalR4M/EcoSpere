@@ -31,7 +31,7 @@ class MyTreesPage extends StatelessWidget {
       appBar: AppBar(
         leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, '/sponsor');
           },
           child: Container(
             margin: const EdgeInsets.only(left: 10),

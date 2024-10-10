@@ -1,6 +1,8 @@
+import 'package:ecosphere/pages/donation_success_page.dart';
 import 'package:ecosphere/pages/exchange_history.dart';
 import 'package:ecosphere/pages/exchange_success.dart';
 import 'package:ecosphere/pages/green_the_home.dart';
+import 'package:ecosphere/pages/green_the_home_donation_history.dart';
 import 'package:ecosphere/pages/recycle_reward_points.dart';
 import 'package:ecosphere/pages/reward_redeem.dart';
 import 'package:ecosphere/pages/welcome_page.dart';
@@ -98,6 +100,8 @@ class Ecosphere extends StatelessWidget {
         '/home': (context) => const Home(), // Define the home route
         '/exchange_history': (context) => const ExchangeHistoryPage(), // Define the exchange history route
         '/welcome': (context) => const WelcomeScreen(), // Define the welcome route
+        '/donation_success': (context) => const GreenTheHomeDonateSuccessPage(), // Define the donation success route
+        '/donations': (context) => const DonationHistoryPage(), // Define the donation route
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) => const Home());

@@ -8,6 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'donation_success_page.dart';
 
 class GreenTheHomeDonate extends StatefulWidget {
+  const GreenTheHomeDonate({super.key});
+
   @override
   State<GreenTheHomeDonate> createState() => _GreenTheHomeDonateState();
 }
@@ -22,9 +24,9 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
 
   // Function to pick image
   Future<void> _pickImage() async {
-    final ImagePicker _picker = ImagePicker();
+    final ImagePicker picker = ImagePicker();
     final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
+        await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       setState(() {
@@ -67,7 +69,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   children: [
                     Text(
@@ -84,7 +86,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                     )
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
@@ -128,7 +130,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -145,7 +147,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                               foregroundColor: theme.colorScheme.onPrimary,
                             )
                           : ElevatedButton.styleFrom(),
-                      child: Text('100LKR'),
+                      child: const Text('100LKR'),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -160,7 +162,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                               foregroundColor: theme.colorScheme.onPrimary,
                             )
                           : ElevatedButton.styleFrom(),
-                      child: Text('200LKR'),
+                      child: const Text('200LKR'),
                     ),
                   ],
                 ),
@@ -180,7 +182,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                               foregroundColor: theme.colorScheme.onPrimary,
                             )
                           : ElevatedButton.styleFrom(),
-                      child: Text('500LKR'),
+                      child: const Text('500LKR'),
                     ),
                     ElevatedButton(
                       onPressed: () {
@@ -195,7 +197,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                               foregroundColor: theme.colorScheme.onPrimary,
                             )
                           : ElevatedButton.styleFrom(),
-                      child: Text('1000LKR'),
+                      child: const Text('1000LKR'),
                     ),
                   ],
                 ),
@@ -214,11 +216,11 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                           : ElevatedButton.styleFrom(),
                       child: _flag
                           ? Text('$_selectedValue\LKR')
-                          : Text('Custom Amount'),
+                          : const Text('Custom Amount'),
                     ),
                   ],
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Row(
                   children: [
                     Text(
@@ -235,7 +237,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                     )
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -257,8 +259,8 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                             ),
-                      label: Text('Credit/Debit Card'),
-                      icon: Icon(Icons.credit_card),
+                      label: const Text('Credit/Debit Card'),
+                      icon: const Icon(Icons.credit_card),
                     ),
                     ElevatedButton.icon(
                       onPressed: () {
@@ -278,8 +280,8 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                             ),
-                      label: Text('PayPal'),
-                      icon: Icon(Icons.paypal),
+                      label: const Text('PayPal'),
+                      icon: const Icon(Icons.paypal),
                     ),
                   ],
                 ),
@@ -304,8 +306,8 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                             ),
-                      label: Text('Mobile Pay'),
-                      icon: Icon(Icons.mobile_friendly),
+                      label: const Text('Mobile Pay'),
+                      icon: const Icon(Icons.mobile_friendly),
                     ),
                     ElevatedButton.icon(
                       onPressed: () {
@@ -325,17 +327,17 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                             ),
-                      label: Text('Bank Transfer'),
-                      icon: Icon(Icons.account_balance),
+                      label: const Text('Bank Transfer'),
+                      icon: const Icon(Icons.account_balance),
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(20.0),
-                    fixedSize: Size(300, 80),
-                    textStyle: TextStyle(
+                    padding: const EdgeInsets.all(20.0),
+                    fixedSize: const Size(300, 80),
+                    textStyle: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
@@ -351,11 +353,11 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                     _showPayNowDialog(context);
                   },
                   // child: Text('Donate'),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.volunteer_activism,
                     size: 40,
                   ),
-                  label: Text('Donate'),
+                  label: const Text('Donate'),
                 ),
               ],
             ),
@@ -366,32 +368,32 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
   }
 
   void _showCustomAmountDialog(BuildContext context) {
-    TextEditingController _customAmountController = TextEditingController();
+    TextEditingController customAmountController = TextEditingController();
 
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Enter Custom Amount'),
+          title: const Text('Enter Custom Amount'),
           content: TextField(
-            controller: _customAmountController,
+            controller: customAmountController,
             keyboardType: TextInputType.number,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Enter amount in LKR',
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             ElevatedButton(
-              child: Text('Submit'),
+              child: const Text('Submit'),
               onPressed: () {
                 setState(() {
-                  _selectedValue = _customAmountController.text;
+                  _selectedValue = customAmountController.text;
                   _flag = true;
                 });
                 Navigator.of(context).pop(); // Close the dialog
@@ -411,14 +413,14 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('ERROR!'),
-            content: Text('Fill out all the areas.'),
+            title: const Text('ERROR!'),
+            content: const Text('Fill out all the areas.'),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the popup
                 },
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           );
@@ -429,19 +431,19 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('You will donate:'),
+            title: const Text('You will donate:'),
             content: _selectedOption == "no_repeat"
-                ? Text('$_selectedValue\LKR Only Once.')
-                : Text('$_selectedValue\LKR Monthly.'),
+                ? Text('$_selectedValue LKR Only Once.')
+                : Text('$_selectedValue LKR Monthly.'),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the popup
                 },
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
               ElevatedButton(
-                child: Text('Confirm'),
+                child: const Text('Confirm'),
                 onPressed: () {
                   Navigator.of(context).pop();
                   _showPayModeDialog(context); // Close the dialog
@@ -455,37 +457,37 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
   }
 
   void _showPayModeDialog(BuildContext context) {
-    TextEditingController _cardNumController = TextEditingController();
-    TextEditingController _cvcController = TextEditingController();
-    TextEditingController _exDateController = TextEditingController();
+    TextEditingController cardNumController = TextEditingController();
+    TextEditingController cvcController = TextEditingController();
+    TextEditingController exDateController = TextEditingController();
 
     if (_selectedPMethod == "card") {
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Enter Card Details'),
+            title: const Text('Enter Card Details'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
-                  controller: _cardNumController,
+                  controller: cardNumController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Enter card number here',
                   ),
                 ),
                 TextField(
-                  controller: _exDateController,
+                  controller: exDateController,
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Enter expire date here',
                   ),
                 ),
                 TextField(
-                  controller: _cvcController,
+                  controller: cvcController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Enter CVC here',
                   ),
                 ),
@@ -493,18 +495,16 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
             ),
             actions: <Widget>[
               TextButton(
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               ElevatedButton(
-                child: Text('Submit'),
+                child: const Text('Submit'),
                 onPressed: () {
-                  setState(() {
                     //send card num, cvc, expire date and amount to the payment gateway
                     _handlePayment(context);
-                  });
                   Navigator.of(context).pop(); // Close the dialog
                 },
               ),
@@ -517,21 +517,21 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Go to PayPal'),
+            title: const Text('Go to PayPal'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
-                  controller: _cardNumController,
+                  controller: cardNumController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Paypal ID',
                   ),
                 ),
                 TextField(
-                  controller: _exDateController,
+                  controller: exDateController,
                   keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Password',
                   ),
                 ),
@@ -539,13 +539,13 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
             ),
             actions: <Widget>[
               TextButton(
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               ElevatedButton(
-                child: Text('Go to PayPal'),
+                child: const Text('Go to PayPal'),
                 onPressed: () {
                   setState(() {
                     //send details to paypal
@@ -562,7 +562,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Upload Your Payment Receipt.'),
+            title: const Text('Upload Your Payment Receipt.'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -574,27 +574,27 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                         width: 150,
                         fit: BoxFit.cover,
                       )
-                    : Text('No image selected.'),
+                    : const Text('No image selected.'),
 
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
 
                 // Button to pick image
                 ElevatedButton.icon(
-                  icon: Icon(Icons.upload),
-                  label: Text('Choose Image'),
+                  icon: const Icon(Icons.upload),
+                  label: const Text('Choose Image'),
                   onPressed: _pickImage,
                 ),
               ],
             ),
             actions: <Widget>[
               TextButton(
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
               ),
               ElevatedButton(
-                child: Text('Submit'),
+                child: const Text('Submit'),
                 onPressed: () {
                   if (_image != null) {
                     // Logic to send the image details (e.g., to a server or process)
@@ -626,8 +626,8 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
         'amount': _selectedValue,
         'repaet': _selectedOption,
         'payment': _selectedPMethod,
-        'userId': currentUser!.uid,
-  
+        'userId': currentUser?.uid,
+     
         'timestamp': FieldValue
             .serverTimestamp(), // Optional: To track when it was sponsored
       });
@@ -636,7 +636,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
       Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => GreenTheHomeDonateSuccessPage()),
+            builder: (context) => const GreenTheHomeDonateSuccessPage()),
       );
       // } else {
       //   // Handle the case where the user is not logged in
@@ -647,9 +647,10 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
       // }
     } catch (e) {
       // Handle any errors that occur during the saving process
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: $e')),
-      );
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(content: Text('Error: $e')),
+    //   );
+    // }
     }
   }
 }

@@ -1,8 +1,11 @@
+import 'package:ecosphere/pages/home.dart';
 import 'package:flutter/material.dart';
 
 import 'green_the_home_donation_history.dart';
 
 class GreenTheHomeDonateSuccessPage extends StatelessWidget {
+  const GreenTheHomeDonateSuccessPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -38,7 +41,11 @@ class GreenTheHomeDonateSuccessPage extends StatelessWidget {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      //navigate to home
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Home()),
+                      );
                     },
                     icon: Icon(Icons.home),
                     label: Text('Home'),
@@ -49,7 +56,7 @@ class GreenTheHomeDonateSuccessPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => DonationHistoryPage()),
+                            builder: (context) => const DonationHistoryPage()),
                       );
                     },
                     icon: Icon(Icons.history),

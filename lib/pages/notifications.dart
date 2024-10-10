@@ -1,3 +1,4 @@
+import 'package:ecosphere/pages/my_trees.dart';
 import 'package:flutter/material.dart';
 
 class NotificationsPage extends StatelessWidget {
@@ -8,6 +9,7 @@ class NotificationsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Notifications', style: TextStyle(color: Color(0xff276027), fontWeight: FontWeight.w700),),
+        centerTitle: true,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -29,7 +31,7 @@ class NotificationsPage extends StatelessWidget {
         ),
       ),
       body: const Center(
-        child: Text('Notifications Page'),
+        child: Text('No new notifications', style: TextStyle(color: Colors.grey, fontSize: 20)),
 
       ),
       bottomNavigationBar: BottomNavigationBar(
