@@ -56,32 +56,33 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('User Profile' , style: TextStyle(color: Color(0xff276027), fontWeight: FontWeight.w700),),
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Profile',
+          style: TextStyle(
+            color: Color(0xff276027),
+            fontWeight: FontWeight.w600,
+            fontSize: 24,
+          ),
+        ),
         centerTitle: true,
-        leading: GestureDetector(
-          onTap: () {
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Color(0xff276027),
+          ),
+          onPressed: () {
             Navigator.pop(context);
           },
-          child: Container(
-            margin: const EdgeInsets.only(left: 10),
-            decoration: const BoxDecoration(
-              color: Color(0xffF7F7F9),
-              shape: BoxShape.circle
-            ),
-            child: const Center(
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-                size: 20,
-              ),
-            ),
-          ),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.edit),
+            icon: const Icon(Icons.edit, color: Color(0xff276027)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -96,17 +97,15 @@ class _UserProfilePageState extends State<UserProfilePage> {
           : Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildProfileItem('Name', name),
-                  const SizedBox(height: 16),
-                  _buildProfileItem('Email', email),
-                  const SizedBox(height: 16),
-                  _buildProfileItem('City', city),
-                  const SizedBox(height: 16),
-                  _buildProfileItem('Phone', phone),
+                  _buildProfileHeader(),
+                  const SizedBox(height: 20),
+                  _buildProfileCard('Name', name),
+                  _buildProfileCard('Email', email),
+                  _buildProfileCard('City', city),
+                  _buildProfileCard('Phone', phone),
                   const Spacer(),
-                  _logout(context),
+                  _buildLogoutButton(context),
                 ],
               ),
             ),
@@ -123,7 +122,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
         showUnselectedLabels: false,
         currentIndex: 3,
         onTap: (index) {
-          // Handle navigation based on tapped icon
           switch (index) {
             case 0:
               Navigator.pushNamed(context, '/home'); // Adjust route as needed
@@ -140,47 +138,86 @@ class _UserProfilePageState extends State<UserProfilePage> {
     );
   }
 
-  Widget _logout(BuildContext context) {
+  Widget _buildProfileHeader() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 24.0),
+      decoration: BoxDecoration(
+        color: const Color(0xffe8f5e9),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 50,
+            backgroundColor: const Color(0xff276027),
+            child: Text(
+              name.isNotEmpty ? name[0] : '?',
+              style: const TextStyle(fontSize: 40, color: Colors.white),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            name,
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+              color: Color(0xff276027),
+            ),
+          ),
+          const SizedBox(height: 5),
+          Text(
+            email,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.grey,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProfileCard(String label, String value) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      elevation: 3,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: ListTile(
+        title: Text(
+          label,
+          style: const TextStyle(
+            fontWeight: FontWeight.w600,
+            color: Color(0xff276027),
+            fontSize: 18,
+          ),
+        ),
+        subtitle: Text(
+          value,
+          style: const TextStyle(fontSize: 16, color: Colors.black54),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLogoutButton(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xff185519),
+        backgroundColor: const Color(0xff276027),
+        padding: const EdgeInsets.symmetric(vertical: 18.0),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
+          borderRadius: BorderRadius.circular(12),
         ),
         minimumSize: const Size(double.infinity, 60),
-        elevation: 0,
       ),
       onPressed: () async {
         await AuthService().signout(context: context);
       },
       child: const Text(
         "Sign Out",
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Colors.white, fontSize: 18),
       ),
-    );
-  }
-
-  Widget _buildProfileItem(String label, String value) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 16,
-            color: Colors.black54,
-          ),
-        ),
-        const Divider(thickness: 1, height: 32),
-      ],
     );
   }
 }

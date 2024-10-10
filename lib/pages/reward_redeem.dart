@@ -63,11 +63,11 @@ class ExchangePointsPage extends StatelessWidget {
                   .get(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                  return Text('No data found');
+                  return const Text('No data found');
                 } else {
                   // Fetch the first document from the results (assuming userId is unique)
                   var data = snapshot.data!.docs.first.data() as Map<String, dynamic>;

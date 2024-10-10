@@ -175,7 +175,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 shape: BoxShape.circle,
               ),
               selectedDecoration: BoxDecoration(
-                color: Color.fromARGB(255, 70, 148, 73),
+                color: Color(0xff276027),
                 shape: BoxShape.circle,
               ),
             ),
@@ -256,6 +256,8 @@ class _CalendarPageState extends State<CalendarPage> {
         },
         selectedItemColor: const Color(0xff276027),
         unselectedItemColor: const Color(0xffB9B9B9),
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

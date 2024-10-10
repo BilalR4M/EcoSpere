@@ -3,6 +3,7 @@ import 'package:ecosphere/pages/exchange_success.dart';
 import 'package:ecosphere/pages/green_the_home.dart';
 import 'package:ecosphere/pages/recycle_reward_points.dart';
 import 'package:ecosphere/pages/reward_redeem.dart';
+import 'package:ecosphere/pages/welcome_page.dart';
 import 'package:ecosphere/services/authwrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -90,12 +91,13 @@ class Ecosphere extends StatelessWidget {
         '/sponsor_overview': (context) => const SponsorOverviewPage(), // Define the sponsor overview route
         '/sponsorpage': (context) => const SponsorTreePage(), // Define the sponsor tree route
         '/mytrees': (context) => const MyTreesPage(), // Define the my trees route
-        '/greenthehome': (context) => const GreenTheHomePage(), // Define the home route
+        '/greenthehome': (context) => GreenTheHomePage(), // Define the home route
         '/recycle': (context) => const RecycleRewardPage(), // Define the recycle route
         '/rewardredeem': (context) => const ExchangePointsPage(), // Define the redeem route
         '/exchange_success': (context) => const SuccessPage(), // Define the exchange success route
         '/home': (context) => const Home(), // Define the home route
         '/exchange_history': (context) => const ExchangeHistoryPage(), // Define the exchange history route
+        '/welcome': (context) => const WelcomeScreen(), // Define the welcome route
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) => const Home());

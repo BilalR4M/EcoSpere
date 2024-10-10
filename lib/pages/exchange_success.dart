@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SuccessPage extends StatefulWidget {
-  const SuccessPage({Key? key}) : super(key: key);
+  const SuccessPage({super.key});
 
   @override
   _SuccessPageState createState() => _SuccessPageState();
@@ -90,7 +90,7 @@ class _SuccessPageState extends State<SuccessPage> {
               Container(
                 padding: const EdgeInsets.all(24.0),
                 decoration: BoxDecoration(
-                  color: Color(0xFF4ADE80).withOpacity(0.2), // Light green background
+                  color: const Color(0xFF4ADE80).withOpacity(0.2), // Light green background
                   borderRadius: BorderRadius.circular(16),
                 ),
                 child: const Column(
@@ -130,12 +130,12 @@ class _SuccessPageState extends State<SuccessPage> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
-                        side: BorderSide(color: Color(0xFF185519)),
+                        side: const BorderSide(color: Color(0xFF185519)),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        minimumSize: Size(double.infinity, 30), // Full width button
+                        minimumSize: const Size(double.infinity, 30), // Full width button
                       ),
                       child: const Text(
                         'Go Back',
@@ -152,12 +152,12 @@ class _SuccessPageState extends State<SuccessPage> {
                         Navigator.pushNamed(context, '/exchange_history');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF185519), // Dark green background
+                        backgroundColor: const Color(0xFF185519), // Dark green background
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-                        minimumSize: Size(double.infinity, 30),
+                        minimumSize: const Size(double.infinity, 30),
                       ),
                       child: const Text(
                         'Exchange History',

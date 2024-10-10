@@ -2,7 +2,6 @@ import 'package:ecosphere/pages/signup.dart';
 import 'package:ecosphere/services/auth_service.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -62,15 +61,13 @@ class Login extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        const Text(
           'Email Address',
-          style: GoogleFonts.raleway(
-            textStyle: const TextStyle(
+          style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.normal,
               fontSize: 16
-            )
-          ),
+          )
         ),
         const SizedBox(height: 16,),
         TextField(

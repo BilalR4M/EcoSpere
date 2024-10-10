@@ -148,6 +148,8 @@ class _HomeState extends State<Home> {
         },
         selectedItemColor: const Color(0xff276027),
         unselectedItemColor: const Color(0xffB9B9B9),
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
