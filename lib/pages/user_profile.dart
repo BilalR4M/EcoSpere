@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecosphere/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'edit_user_profile.dart'; // Import for EditUserProfilePage
@@ -105,6 +106,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   const SizedBox(height: 16),
                   _buildProfileItem('Phone', phone),
                   const Spacer(),
+                  _logout(context),
                 ],
               ),
             ),
@@ -134,6 +136,26 @@ class _UserProfilePageState extends State<UserProfilePage> {
               break;
           }
         },
+      ),
+    );
+  }
+
+  Widget _logout(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xff185519),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(14),
+        ),
+        minimumSize: const Size(double.infinity, 60),
+        elevation: 0,
+      ),
+      onPressed: () async {
+        await AuthService().signout(context: context);
+      },
+      child: const Text(
+        "Sign Out",
+        style: TextStyle(color: Colors.white),
       ),
     );
   }

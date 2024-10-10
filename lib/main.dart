@@ -1,4 +1,8 @@
+import 'package:ecosphere/pages/exchange_history.dart';
+import 'package:ecosphere/pages/exchange_success.dart';
 import 'package:ecosphere/pages/green_the_home.dart';
+import 'package:ecosphere/pages/recycle_reward_points.dart';
+import 'package:ecosphere/pages/reward_redeem.dart';
 import 'package:ecosphere/services/authwrapper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +14,7 @@ import 'package:ecosphere/pages/sponsor_tree.dart';
 import 'package:ecosphere/pages/sponsor.dart';
 import 'package:ecosphere/pages/user_profile.dart';
 import 'package:ecosphere/pages/sponsor_overview_page.dart';
+import 'package:flutter/services.dart';
 
 Future<void> main() async {
 
@@ -38,6 +43,12 @@ class Ecosphere extends StatelessWidget {
           onSurface: Colors.black,     // Text color on surfaces
           error: Colors.red,           // Error color
           onError: Colors.white,       // Error text color
+        ),
+        appBarTheme: const AppBarTheme(
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent, // Set the status bar color
+            statusBarIconBrightness: Brightness.dark, // Dark icons on the status bar
+          ),
         ),
         textTheme: const TextTheme(
           headlineLarge: TextStyle(
@@ -80,6 +91,11 @@ class Ecosphere extends StatelessWidget {
         '/sponsorpage': (context) => const SponsorTreePage(), // Define the sponsor tree route
         '/mytrees': (context) => const MyTreesPage(), // Define the my trees route
         '/greenthehome': (context) => const GreenTheHomePage(), // Define the home route
+        '/recycle': (context) => const RecycleRewardPage(), // Define the recycle route
+        '/rewardredeem': (context) => const ExchangePointsPage(), // Define the redeem route
+        '/exchange_success': (context) => const SuccessPage(), // Define the exchange success route
+        '/home': (context) => const Home(), // Define the home route
+        '/exchange_history': (context) => const ExchangeHistoryPage(), // Define the exchange history route
       },
       onUnknownRoute: (settings) {
         return MaterialPageRoute(builder: (context) => const Home());

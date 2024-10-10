@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 
 class GreenTheHomeDonate extends StatefulWidget {
@@ -326,7 +327,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                         borderRadius: BorderRadius.circular(20)),
                   ),
                   onPressed: () {
-                    print(
+                    log(
                         'selected: $_selectedOption, $_selectedValue, $_selectedPMethod');
                     _showPayNowDialog(context);
                   },
@@ -342,6 +343,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
           ),
         ),
       ),
+      
     );
   }
 

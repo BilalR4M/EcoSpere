@@ -1,7 +1,6 @@
 import 'package:ecosphere/pages/calendar.dart';
 import 'package:ecosphere/pages/notifications.dart';
 import 'package:ecosphere/pages/user_profile.dart';
-import 'package:ecosphere/services/auth_service.dart';
 import 'package:ecosphere/src/namewidget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,10 +32,11 @@ class _HomeState extends State<Home> {
           'assets/logo.png',
           height: 80,
         ),
+        
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 100,
-        leading: null,
+        automaticallyImplyLeading: false,
       ),
       body: SafeArea(
         child: Padding(
@@ -70,10 +70,10 @@ class _HomeState extends State<Home> {
                   elevation: 0,
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/user_profile');
+                  Navigator.pushNamed(context, '/recycle');
                 },
                 child: const Text(
-                  "View Profile",
+                  "Recycle Rewards",
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -114,8 +114,6 @@ class _HomeState extends State<Home> {
                 ),
               ),
               const SizedBox(height: 30),
-              _logout(context),
-              const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff185519),
@@ -153,44 +151,26 @@ class _HomeState extends State<Home> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),
-            label: 'Calendar',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
-            label: 'Notifications',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Profile',
+            label: '',
           ),
         ],
       ),
     );
   }
 
-  Widget _logout(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: const Color(0xff185519),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(14),
-        ),
-        minimumSize: const Size(double.infinity, 60),
-        elevation: 0,
-      ),
-      onPressed: () async {
-        await AuthService().signout(context: context);
-      },
-      child: const Text(
-        "Sign Out",
-        style: TextStyle(color: Colors.white),
-      ),
-    );
-  }
+  
 }
 
 

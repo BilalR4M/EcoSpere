@@ -39,7 +39,7 @@ class GreenTheHomePO extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   children: [
                     Text(
@@ -64,7 +64,7 @@ class GreenTheHomePO extends StatelessWidget {
                       height: 155,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
+                        image: const DecorationImage(
                           image: AssetImage('assets/images/indoor_plants.png'),
                           fit: BoxFit.cover,
                         ),
@@ -98,7 +98,7 @@ class GreenTheHomePO extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   children: [
                     Expanded(
@@ -124,7 +124,7 @@ class GreenTheHomePO extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10.0,
                     ),
                     Container(
@@ -132,7 +132,7 @@ class GreenTheHomePO extends StatelessWidget {
                       height: 155,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        image: DecorationImage(
+                        image: const DecorationImage(
                           image: AssetImage('assets/images/indoor_plants.png'),
                           fit: BoxFit.cover,
                         ),
@@ -140,7 +140,7 @@ class GreenTheHomePO extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Row(
                   children: [
                     Image.asset(
@@ -148,7 +148,7 @@ class GreenTheHomePO extends StatelessWidget {
                       width: 200,
                       height: 200,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10.0,
                     ),
                     Expanded(
@@ -176,12 +176,12 @@ class GreenTheHomePO extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(20.0),
-                    fixedSize: Size(300, 80),
-                    textStyle: TextStyle(
+                    padding: const EdgeInsets.all(20.0),
+                    fixedSize: const Size(300, 80),
+                    textStyle: const TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                     ),
@@ -195,15 +195,15 @@ class GreenTheHomePO extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => GreenTheHomeDonate()),
+                          builder: (context) => const GreenTheHomeDonate()),
                     );
                   },
                   // child: Text('Donate'),
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.volunteer_activism,
                     size: 40,
                   ),
-                  label: Text('Donate'),
+                  label: const Text('Donate'),
                 ),
               ],
             ),

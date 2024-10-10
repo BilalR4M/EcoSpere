@@ -171,11 +171,11 @@ class _CalendarPageState extends State<CalendarPage> {
             },
             calendarStyle: const CalendarStyle(
               todayDecoration: BoxDecoration(
-                color: Colors.greenAccent,
+                color: Color.fromARGB(255, 20, 201, 107),
                 shape: BoxShape.circle,
               ),
               selectedDecoration: BoxDecoration(
-                color: Colors.green,
+                color: Color.fromARGB(255, 70, 148, 73),
                 shape: BoxShape.circle,
               ),
             ),
@@ -259,19 +259,19 @@ class _CalendarPageState extends State<CalendarPage> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),
-            label: 'Calendar',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications),
-            label: 'Notifications',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Profile',
+            label: '',
           ),
         ],
       ),
