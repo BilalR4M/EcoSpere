@@ -36,6 +36,7 @@ class _RecycleRewardPageState extends State<RecycleRewardPage> {
         final DocumentSnapshot document = snapshot.docs[0];
         setState(() {
           rewardPoints = document['rewardPoints'];
+          lastPointsEarned = document['lastPointsEarned'];
         });
       }
     } catch (e) {
@@ -44,14 +45,15 @@ class _RecycleRewardPageState extends State<RecycleRewardPage> {
   }
 
   // Function to add reward points to Firestore
+  // Function to add reward points to Firestore and update the UI immediately
   Future<void> _addRewardPoints() async {
     // Generate new random points when the button is pressed
-    int pointsEarned = Random().nextInt(10) + 1; 
+    int pointsEarned = Random().nextInt(10) + 1;
 
     // Reference to Firestore
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
     final String userId = FirebaseAuth.instance.currentUser!.uid;
-    
+
     try {
       // Find the user's document in the 'rewardpoints' collection and update it
       final QuerySnapshot snapshot = await firestore
@@ -59,28 +61,38 @@ class _RecycleRewardPageState extends State<RecycleRewardPage> {
           .where('userId', isEqualTo: userId)
           .limit(1)
           .get();
+      
       if (snapshot.docs.isNotEmpty) {
-        
         // Get the document ID of the first match
         final String docId = snapshot.docs[0].id;
 
-        // Update the existing record
+        // Update the existing record in Firestore
         await firestore.collection('rewardpoints').doc(docId).update({
           'rewardPoints': FieldValue.increment(pointsEarned),
           'lastPointsEarned': pointsEarned,
           'timestamp': FieldValue.serverTimestamp(),
         });
 
+        // Update the local state immediately
+        setState(() {
+          rewardPoints += pointsEarned;
+          lastPointsEarned = pointsEarned;
+        });
+
         print('Points updated successfully');
       } else {
-        int rewardPoints = 10;
-
         // If no document is found, create a new one
         await firestore.collection('rewardpoints').add({
           'userId': userId,
-          'rewardPoints': rewardPoints,
+          'rewardPoints': pointsEarned,
           'lastPointsEarned': pointsEarned,
           'timestamp': FieldValue.serverTimestamp(),
+        });
+
+        // Set initial reward points in the state
+        setState(() {
+          rewardPoints = pointsEarned;
+          lastPointsEarned = pointsEarned;
         });
 
         print('New points document created');
@@ -88,13 +100,8 @@ class _RecycleRewardPageState extends State<RecycleRewardPage> {
     } catch (e) {
       print('Failed to update points: $e');
     }
-    
-    // Update the local state with the new points
-    setState(() {
-      lastPointsEarned = pointsEarned; // Set the new random points to lastPointsEarned
-      rewardPoints += pointsEarned; // Add earned points to total
-    });
-  }
+}
+
 
   // Function to show a warning if trying to redeem with 0 points
   void _showWarning() {
@@ -120,6 +127,7 @@ class _RecycleRewardPageState extends State<RecycleRewardPage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 100,
+        forceMaterialTransparency: true,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -151,6 +159,15 @@ class _RecycleRewardPageState extends State<RecycleRewardPage> {
             Center(
               child: Column(
                 children: [
+                  const SizedBox(height: 16.0),
+                  Text(
+                    'Recycle & Win',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
                   const SizedBox(height: 16.0),
                   
                   // Reward Points Section

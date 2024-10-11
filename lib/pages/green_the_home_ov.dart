@@ -85,7 +85,7 @@ class GreenTheHomePO extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nunc lacus, volutpat id erat id, porta sagittis quam. Suspendisse potenti.',
+                            'Users donate to distribute indoor plants to homes or community spaces, improving local air quality.',
                             style: TextStyle(
                               color: theme.colorScheme.primary,
                             ),
@@ -113,7 +113,7 @@ class GreenTheHomePO extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nunc lacus, volutpat id erat id, porta sagittis quam. Suspendisse potenti.',
+                            'To encourage donations for the distribution of plants that promote cleaner, healthier indoor environments.',
                             style: TextStyle(
                               color: theme.colorScheme.primary,
                             ),
@@ -128,7 +128,7 @@ class GreenTheHomePO extends StatelessWidget {
                       width: 10.0,
                     ),
                     Container(
-                      width: 175,
+                      width: 200,
                       height: 155,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -169,7 +169,7 @@ class GreenTheHomePO extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nunc lacus, volutpat id erat id, porta sagittis quam. Suspendisse potenti.',
+                            'Enhances air quality, reduces pollutants, and fosters sustainable living by increasing plant presence in indoor spaces.',
                             style: TextStyle(
                               color: theme.colorScheme.primary,
                             ),

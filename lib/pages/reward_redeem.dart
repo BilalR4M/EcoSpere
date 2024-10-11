@@ -81,10 +81,10 @@ class ExchangePointsPage extends StatelessWidget {
                     ),
                     child: Text(
                       '$rewardPoints',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
-                        color: Colors.green.shade800,
+                        color: Color(0xff028960),
                       ),
                     ),
                   );
@@ -149,7 +149,9 @@ class ExchangePointsPage extends StatelessWidget {
               onPressed: () async {
                 // Perform exchange logic and store it in Firebase
                 await _storeExchange(points);
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
+                // ignore: use_build_context_synchronously
                 _showSuccessDialog(context);
               },
               child: const Text("Confirm"),
@@ -185,7 +187,9 @@ class ExchangePointsPage extends StatelessWidget {
               onPressed: () async {
                 // Perform exchange logic and store it in Firebase
                 await _storeExchange(points);
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
+                // ignore: use_build_context_synchronously
                 _showSuccessDialog(context);
               },
               child: const Text("Confirm"),
@@ -220,7 +224,9 @@ class ExchangePointsPage extends StatelessWidget {
               onPressed: () async {
                 // Perform exchange logic and store it in Firebase
                 await _storeExchange(points);
+                // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
+                // ignore: use_build_context_synchronously
                 _showSuccessDialog(context);
               },
               child: const Text("Confirm"),

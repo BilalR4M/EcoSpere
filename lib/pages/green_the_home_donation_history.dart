@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; // For date formatting
 
 class DonationHistoryPage extends StatelessWidget {
   const DonationHistoryPage({super.key});
@@ -28,8 +29,11 @@ class DonationHistoryPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Donation History', style: TextStyle(fontSize: 28, fontWeight: FontWeight.normal, color: Color(0xff185519))),
+        title: const Text('Donation History',
+            style: TextStyle(
+                fontSize: 28, fontWeight: FontWeight.normal, color: Color(0xff185519))),
         centerTitle: true,
+        forceMaterialTransparency: true,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -37,8 +41,7 @@ class DonationHistoryPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.only(left: 10),
             decoration: const BoxDecoration(
-              color: Color(0xffF7F7F9),
-              shape: BoxShape.circle
+              shape: BoxShape.circle,
             ),
             child: const Center(
               child: Icon(
@@ -49,7 +52,6 @@ class DonationHistoryPage extends StatelessWidget {
           ),
         ),
       ),
-      
       body: Center(
         child: Column(
           children: [
@@ -101,32 +103,45 @@ class DonationHistoryPage extends StatelessWidget {
                       String amount = donationData['amount'].toString();
                       Timestamp? timestamp = donationData['timestamp'] as Timestamp?;
                       DateTime dateTime = timestamp?.toDate() ?? DateTime.now();
+                      
+                      // Format the date using intl package
+                      String formattedDate = DateFormat('dd MMM yyyy').format(dateTime);
 
                       return GestureDetector(
                         child: Container(
                           margin: const EdgeInsets.only(bottom: 16),
                           decoration: BoxDecoration(
-                            color: Colors.green.shade100,
+                            color: Colors.green[100],
                             borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 1,
+                                blurRadius: 10,
+                                offset: const Offset(0, 5),
+                              ),
+                            ],
                           ),
                           child: ListTile(
                             contentPadding: const EdgeInsets.all(16),
                             leading: ClipRRect(
                               borderRadius: BorderRadius.circular(8),
-                              child: const Icon(Icons.grass, size: 40),
+                              child: const Icon(Icons.grass, size: 40, color: Color(0xff185519)),
                             ),
                             title: Text(
                               '$amount LKR',
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
+                                color: Color(0xff185519),
                               ),
                             ),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                const SizedBox(height: 8),
                                 Text(
-                                  'Date: ${dateTime.toLocal()}'.split(' ')[0],
+                                  'Date: $formattedDate',
                                   style: const TextStyle(
                                     fontSize: 16,
                                     color: Colors.black54,

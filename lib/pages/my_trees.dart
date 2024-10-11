@@ -21,7 +21,12 @@ class MyTreesPage extends StatelessWidget {
     // Check if the user is logged in
     if (currentUser == null) {
       return const Scaffold(
-        body: Center(child: Text('Please log in to see your trees')),
+        body: Center(
+          child: Text(
+            'Please log in to see your trees',
+            style: TextStyle(fontSize: 18, color: Colors.black54),
+          ),
+        ),
       );
     }
 
@@ -36,15 +41,12 @@ class MyTreesPage extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.only(left: 10),
             decoration: const BoxDecoration(
-              color: Color(0xffF7F7F9),
-              shape: BoxShape.circle
+              shape: BoxShape.circle,
             ),
-            child: const Center(
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-                size: 20,
-              ),
+            child: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+              size: 24,
             ),
           ),
         ),
@@ -53,8 +55,11 @@ class MyTreesPage extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 24,
+            color: Colors.black87,
           ),
         ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         centerTitle: true,
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -68,24 +73,32 @@ class MyTreesPage extends StatelessWidget {
           }
 
           if (snapshot.hasError) {
-            return const Center(child: Text('Something went wrong. Please try again later.'));
+            return const Center(
+              child: Text('Something went wrong. Please try again later.'),
+            );
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return const Center(child: Text('No sponsored trees found.'));
+            return const Center(
+              child: Text(
+                'No sponsored trees found.',
+                style: TextStyle(fontSize: 18, color: Colors.black54),
+              ),
+            );
           }
 
           List<DocumentSnapshot> trees = snapshot.data!.docs;
 
           return ListView.builder(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             itemCount: trees.length,
             itemBuilder: (context, index) {
               var treeData = trees[index].data() as Map<String, dynamic>;
               String treeName = treeData['treeType'] ?? 'Tree';
               String city = treeData['city'] ?? 'Unknown City';
               String status = treeData['status'] ?? 'Unknown Status';
-              String treeImage = treeImages[treeName] ?? 'assets/images/default_tree.png';
+              String treeImage =
+                  treeImages[treeName] ?? 'assets/images/default_tree.png';
 
               return GestureDetector(
                 onTap: () {
@@ -104,13 +117,20 @@ class MyTreesPage extends StatelessWidget {
                 child: Container(
                   margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
-                    color: Colors.green.shade100,
-                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.green[100],
+                    borderRadius: BorderRadius.circular(18),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 10,
+                        offset: const Offset(0, 5),
+                      ),
+                    ],
                   ),
                   child: ListTile(
                     contentPadding: const EdgeInsets.all(16),
                     leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(12),
                       child: Image.asset(
                         treeImage,
                         width: 60,
@@ -120,25 +140,39 @@ class MyTreesPage extends StatelessWidget {
                     ),
                     title: Text(
                       treeName,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),
                     ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(city),
-                        const SizedBox(height: 4),
-                        Text(
-                          status,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: status == 'healthy'
-                                ? Colors.green
-                                : status == 'good'
-                                    ? Colors.orange
-                                    : Colors.red, // Default color for other statuses
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(top: 6.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            city,
+                            style: const TextStyle(
+                              color: Colors.black54,
+                              fontSize: 14,
+                            ),
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 4),
+                          Text(
+                            status,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: _getStatusColor(status),
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    trailing: const Icon(
+                      Icons.chevron_right,
+                      color: Colors.black54,
+                      size: 28,
                     ),
                   ),
                 ),
@@ -148,5 +182,18 @@ class MyTreesPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Color _getStatusColor(String status) {
+    switch (status.toLowerCase()) {
+      case 'healthy':
+        return Colors.green.shade600;
+      case 'good':
+        return Colors.orange.shade400;
+      case 'poor':
+        return Colors.red.shade400;
+      default:
+        return Colors.grey;
+    }
   }
 }

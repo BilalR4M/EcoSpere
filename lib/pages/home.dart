@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecosphere/pages/calendar.dart';
 import 'package:ecosphere/pages/notifications.dart';
@@ -36,7 +34,7 @@ class _HomeState extends State<Home> {
     super.initState();
     _fetchTodaySchedules();
     _initializeRewardPoints();
-    _generateRandomLastPoints();
+
   }
 
   // Function to initialize reward points from Firestore
@@ -55,18 +53,12 @@ class _HomeState extends State<Home> {
         final DocumentSnapshot document = snapshot.docs[0];
         setState(() {
           rewardPoints = document['rewardPoints'];
+          lastPointsEarned = document['lastPointsEarned'];
         });
       }
     } catch (e) {
       print('Failed to fetch reward points: $e');
     }
-  }
-
-  // Function to generate a random number for last points earned
-  void _generateRandomLastPoints() {
-    setState(() {
-      lastPointsEarned = Random().nextInt(10) + 1; // Random number between 1 and 10
-    });
   }
 
     
@@ -210,68 +202,73 @@ class _HomeState extends State<Home> {
 
                         String svgPath = _getSvgForActivity(activity);
 
-                        return Container(
-                          margin: const EdgeInsets.symmetric(vertical: 8.0),
-                          padding: const EdgeInsets.all(12.0),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF9BF3D6),
-                            borderRadius: BorderRadius.circular(16),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 1,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  svgPath,
-                                  width: 40,
-                                  height: 40,
-                                  semanticsLabel: 'Waste Collection Icon',
-                                ),
-                                const SizedBox(width: 16),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        activity,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 4),
-                                      Row(
-                                        children: [
-                                          const Text('City: ', style: TextStyle(fontWeight: FontWeight.w600)),
-                                          Text(
-                                            city,
-                                            style: const TextStyle(fontWeight: FontWeight.bold,),
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 2),
-                                      Row(
-                                        children: [
-                                          const Text('Collection Time: ', style: TextStyle(fontWeight: FontWeight.w600)),
-                                          Text(
-                                            collectionTime,
-                                            style: const TextStyle(fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/calendar');
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 8.0),
+                            padding: const EdgeInsets.all(12.0),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF9BF3D6),
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  blurRadius: 1,
+                                  offset: const Offset(0, 4),
                                 ),
                               ],
                             ),
-                            
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    svgPath,
+                                    width: 40,
+                                    height: 40,
+                                    semanticsLabel: 'Waste Collection Icon',
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          activity,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Row(
+                                          children: [
+                                            const Text('City: ', style: TextStyle(fontWeight: FontWeight.w600)),
+                                            Text(
+                                              city,
+                                              style: const TextStyle(fontWeight: FontWeight.bold,),
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 2),
+                                        Row(
+                                          children: [
+                                            const Text('Collection Time: ', style: TextStyle(fontWeight: FontWeight.w600)),
+                                            Text(
+                                              collectionTime,
+                                              style: const TextStyle(fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              
+                            ),
                           ),
                         );
                       },

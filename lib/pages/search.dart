@@ -20,6 +20,7 @@ class _SearchPageState extends State<SearchPage> {
   String _selectedCity = 'All';
   String _searchQuery = '';
   Timer? _debounce;
+  TextEditingController _searchController = TextEditingController(); 
 
   @override
   void dispose() {
@@ -166,6 +167,7 @@ class _SearchPageState extends State<SearchPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
+                      controller: _searchController,
                       decoration: const InputDecoration(
                         labelText: 'Search by Activity',
                         suffixIcon: Icon(Icons.search),    

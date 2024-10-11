@@ -1,9 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
-class ExchangeHistoryPage extends StatelessWidget {
+class ExchangeHistoryPage extends StatefulWidget {
   const ExchangeHistoryPage({super.key});
+
+  @override
+  _ExchangeHistoryPageState createState() => _ExchangeHistoryPageState();
+}
+
+class _ExchangeHistoryPageState extends State<ExchangeHistoryPage> {
+  DateTime? selectedDate; // To store the selected date
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +18,10 @@ class ExchangeHistoryPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        forceMaterialTransparency: true,
         leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+            Navigator.pushNamed(context, '/recycle');
           },
           child: const Icon(Icons.arrow_back, color: Colors.black),
         ),
@@ -42,19 +50,25 @@ class ExchangeHistoryPage extends StatelessWidget {
             } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
               return const Center(child: Text('No exchange history found.'));
             } else {
-              // Convert to a List and sort by timestamp manually
+              // Sort by timestamp
               List<QueryDocumentSnapshot> docs = snapshot.data!.docs;
+
+              // Convert timestamps to DateTime before sorting
               docs.sort((a, b) {
-                Timestamp timestampA = a['timestamp'];
-                Timestamp timestampB = b['timestamp'];
-                return timestampB.compareTo(timestampA); // Sort descending
+                DateTime? dateA = (a['timestamp'] != null) 
+                    ? (a['timestamp'] as Timestamp).toDate()
+                    : DateTime.now(); // Default to current date if null
+                DateTime? dateB = (b['timestamp'] != null) 
+                    ? (b['timestamp'] as Timestamp).toDate()
+                    : DateTime.now(); // Default to current date if null
+                return dateB.compareTo(dateA); // Sort descending by date
               });
 
               return ListView(
                 children: docs.map((doc) {
                   var data = doc.data() as Map<String, dynamic>;
                   int points = data['exchangePoints'] ?? 0;
-                  Timestamp timestamp = data['timestamp'] as Timestamp;
+                  Timestamp? timestamp = data['timestamp'] as Timestamp?;
                   String date = _formatTimestamp(timestamp);
 
                   return _buildExchangeItem(points: points, date: date);
@@ -89,7 +103,6 @@ class ExchangeHistoryPage extends StatelessWidget {
           ),
         ],
         onTap: (index) {
-          // Handle navigation based on the tapped item
           switch (index) {
             case 0:
               Navigator.pushNamed(context, '/home');
@@ -116,7 +129,14 @@ class ExchangeHistoryPage extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.green.shade100,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16), // Modern rounded corners
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              blurRadius: 8,
+              offset: const Offset(0, 4), // Subtle shadow for elevation
+            ),
+          ],
         ),
         padding: const EdgeInsets.all(16.0),
         child: Row(
@@ -125,19 +145,34 @@ class ExchangeHistoryPage extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  backgroundColor: Colors.green,
-                  radius: 20,
+                  backgroundColor: Colors.green.shade700, // Darker green for contrast
+                  radius: 24,
                   child: Text(
                     '-$points',
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 12),
+                const Text(
+                  "Exchange Points",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
               ],
             ),
             Text(
               date,
-              style: const TextStyle(fontSize: 16, color: Colors.black54),
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.black54,
+              ),
             ),
           ],
         ),
@@ -145,8 +180,12 @@ class ExchangeHistoryPage extends StatelessWidget {
     );
   }
 
-  // Helper function to format Firestore Timestamp into a readable date
-  String _formatTimestamp(Timestamp timestamp) {
+  // Function to format Firestore Timestamp into a readable date
+  String _formatTimestamp(Timestamp? timestamp) {
+    if (timestamp == null) {
+      return 'Unknown Date'; // Return placeholder if no timestamp is available
+    }
+
     DateTime dateTime = timestamp.toDate();
     return '${dateTime.day.toString().padLeft(2, '0')} ${_getMonthName(dateTime.month)} ${dateTime.year}';
   }
