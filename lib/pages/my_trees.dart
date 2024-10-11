@@ -34,6 +34,7 @@ class MyTreesPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        forceMaterialTransparency: true,
         leading: GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, '/sponsor');

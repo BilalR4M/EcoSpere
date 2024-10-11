@@ -141,11 +141,15 @@ class TreeDetailsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const Center(
-                child: Icon(
-                  Icons.map,
-                  size: 60,
-                  color: Colors.green,
+              child:  Center(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/map.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: null,
                 ),
               ), // Placeholder for map
             ),

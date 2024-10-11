@@ -8,7 +8,7 @@ class ScheduleService {
     // Sample waste schedules with city and collection time for each activity
     List<Map<String, dynamic>> schedules = [
       {
-      'date': Timestamp.fromDate(DateTime.parse('2024-11-28T00:00:00Z')),
+      'date': Timestamp.fromDate(DateTime.parse('2024-17-07T00:00:00Z')),
       'activities': [
         {
         'activity': 'E-Waste Collection',
@@ -23,7 +23,7 @@ class ScheduleService {
       ],
       },
       {
-      'date': Timestamp.fromDate(DateTime.parse('2024-11-25T00:00:00Z')),
+      'date': Timestamp.fromDate(DateTime.parse('2024-18-05T00:00:00Z')),
       'activities': [
         {
         'activity': 'Recyclable Waste Collection',
@@ -48,7 +48,7 @@ class ScheduleService {
       ],
       },
       {
-      'date': Timestamp.fromDate(DateTime.parse('2024-11-22T00:00:00Z')),
+      'date': Timestamp.fromDate(DateTime.parse('2024-19-08T00:00:00Z')),
       'activities': [
         {
         'activity': 'Organic Waste Collection',
@@ -63,7 +63,7 @@ class ScheduleService {
       ],
       },
       {
-      'date': Timestamp.fromDate(DateTime.parse('2024-11-21T00:00:00Z')),
+      'date': Timestamp.fromDate(DateTime.parse('2024-20-09T00:00:00Z')),
       'activities': [
         {
         'activity': 'General Waste Collection',
@@ -71,7 +71,7 @@ class ScheduleService {
         'collectionTime': '08:00 AM',
         },
         {
-        'activity': 'Hazardous Waste Collection',
+        'activity': 'Toxic Waste Collection',
         'city': 'City A',
         'collectionTime': '10:00 AM',
         },
@@ -83,6 +83,76 @@ class ScheduleService {
       ],
       },
       // Add more schedules similarly...
+    {
+    'date': Timestamp.fromDate(DateTime.parse('2024-10-06T00:00:00Z')),
+    'activities': [
+      {
+      'activity': 'E-Waste Collection',
+      'city': 'City C',
+      'collectionTime': '09:00 AM',
+      },
+      {
+      'activity': 'Recyclable Waste Collection',
+      'city': 'City C',
+      'collectionTime': '11:00 AM',
+      },
+    ],
+    },
+    {
+    'date': Timestamp.fromDate(DateTime.parse('2024-10-02T00:00:00Z')),
+    'activities': [
+      {
+      'activity': 'Battery Collection',
+      'city': 'City A',
+      'collectionTime': '08:00 AM',
+      },
+      {
+      'activity': 'Plastics Recycling Collection',
+      'city': 'City A',
+      'collectionTime': '10:00 AM',
+      },
+      {
+      'activity': 'Organic Waste Collection',
+      'city': 'City B',
+      'collectionTime': '12:00 PM',
+      },
+    ],
+    },
+    {
+    'date': Timestamp.fromDate(DateTime.parse('2024-11-19T00:00:00Z')),
+    'activities': [
+      {
+      'activity': 'General Waste Collection',
+      'city': 'City B',
+      'collectionTime': '09:00 AM',
+      },
+      {
+      'activity': 'Toxic Waste Collection',
+      'city': 'City B',
+      'collectionTime': '11:00 AM',
+      },
+    ],
+    },
+    {
+    'date': Timestamp.fromDate(DateTime.parse('2024-11-20T00:00:00Z')),
+    'activities': [
+      {
+      'activity': 'Medical Waste Collection',
+      'city': 'City C',
+      'collectionTime': '08:00 AM',
+      },
+      {
+      'activity': 'E-Waste Collection',
+      'city': 'City C',
+      'collectionTime': '10:00 AM',
+      },
+      {
+      'activity': 'Recyclable Waste Collection',
+      'city': 'City A',
+      'collectionTime': '12:00 PM',
+      },
+    ],
+    },
     ];
     
     

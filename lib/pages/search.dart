@@ -20,7 +20,7 @@ class _SearchPageState extends State<SearchPage> {
   String _selectedCity = 'All';
   String _searchQuery = '';
   Timer? _debounce;
-  TextEditingController _searchController = TextEditingController(); 
+  final TextEditingController _searchController = TextEditingController(); 
 
   @override
   void dispose() {

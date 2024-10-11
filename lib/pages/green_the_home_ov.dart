@@ -60,12 +60,12 @@ class GreenTheHomePO extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      width: 200,
+                      width: 180,
                       height: 155,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         image: const DecorationImage(
-                          image: AssetImage('assets/images/indoor_plants.png'),
+                          image: AssetImage('assets/images/indoor_plants2.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -128,12 +128,12 @@ class GreenTheHomePO extends StatelessWidget {
                       width: 10.0,
                     ),
                     Container(
-                      width: 200,
+                      width: 180,
                       height: 155,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         image: const DecorationImage(
-                          image: AssetImage('assets/images/indoor_plants.png'),
+                          image: AssetImage('assets/images/indoor_plants3.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -144,12 +144,12 @@ class GreenTheHomePO extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      width: 200,
+                      width: 180,
                       height: 155,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         image: const DecorationImage(
-                          image: AssetImage('assets/images/indoor_plants.png'),
+                          image: AssetImage('assets/images/indoor_plants4.png'),
                           fit: BoxFit.cover,
                         ),
                       ),
