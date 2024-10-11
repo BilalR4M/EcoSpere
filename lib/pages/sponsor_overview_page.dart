@@ -11,15 +11,13 @@ class SponsorOverviewPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Sponsor A Tree',
-          style: GoogleFonts.raleway(
-            textStyle: const TextStyle(
+          style: TextStyle(
               color: Color(0xff185519),
               fontWeight: FontWeight.bold,
               fontSize: 24,
-            ),
-          ),
+            )
         ),
         leading: GestureDetector(
           onTap: () {
@@ -31,7 +29,6 @@ class SponsorOverviewPage extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(

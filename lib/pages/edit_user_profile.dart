@@ -7,6 +7,7 @@ class EditUserProfilePage extends StatefulWidget {
   const EditUserProfilePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _EditUserProfilePageState createState() => _EditUserProfilePageState();
 }
 
@@ -177,12 +178,18 @@ class _EditUserProfilePageState extends State<EditUserProfilePage> {
           controller: controller,
           enabled: enabled,
           decoration: InputDecoration(
+            focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Color(0xff276027)),
+              borderRadius: BorderRadius.circular(12),
+            ),
             contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
             border: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.black, width: 10),
               borderRadius: BorderRadius.circular(12),
             ),
             filled: true,
             fillColor: Colors.grey[100],
+            
           ),
         ),
       ],

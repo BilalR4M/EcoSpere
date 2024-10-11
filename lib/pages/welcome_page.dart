@@ -25,9 +25,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       body: Center(
         child: Container(
           padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             // Add gradient background
-            gradient: const LinearGradient(
+            gradient: LinearGradient(
               begin: Alignment.bottomCenter,
               end: Alignment.topCenter,
               colors: [
@@ -56,7 +56,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
               ),
               const SizedBox(height: 20.0),
-              Text(
+              const Text(
                 'Thank you for joining our mission to make the world greener and more sustainable. Let\'s plant trees, reduce waste, and create a cleaner future together. Ready to make an impact today?',
                 textAlign: TextAlign.center,
                 style: TextStyle(

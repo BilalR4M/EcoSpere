@@ -69,6 +69,7 @@ class ExchangeHistoryPage extends StatelessWidget {
         currentIndex: 0, // Change this based on the active page
         selectedItemColor: const Color(0xff185519),
         unselectedItemColor: const Color(0xffB9B9B9),
+        elevation: 0,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),

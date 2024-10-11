@@ -32,23 +32,41 @@ class Login extends StatelessWidget {
             children: [
               const SizedBox(height: 20,),
               const Center(
-                child: Text(
-                  'Welcome Back',
-                  style: TextStyle(
-                      color: Color(0xff185519),
-                      fontWeight: FontWeight.w700,
-                      fontSize: 32
-                    )
+                child: Column(
+                  children: [
+                    Text(
+                      'WELCOME BACK',
+                      style: TextStyle(
+                          color: Color(0xff185519),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 32
+                        )
+                    ),
+                    Text('Welcome back to Ecosphere! \nLet\'s make the world greener together.', style: TextStyle(color: Color.fromARGB(162, 106, 106, 106),  fontWeight: FontWeight.w400, fontSize: 16), textAlign: TextAlign.center,),
+                  ],
                 ),
+          
               ),
               const SizedBox(height: 80,),
-               _emailAddress(),
-               const SizedBox(height: 20,),
-               _password(),
-               const SizedBox(height: 50,),
-               _signin(context),
-               const SizedBox(height: 20,),
-               _signup(context)
+              _emailAddress(),
+              const SizedBox(height: 20,),
+              _password(),
+              Padding(
+                padding: const EdgeInsets.only(right: 2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                     onPressed: () {}, 
+                     child: const Text('Forgot Password?', style: TextStyle(color: Color.fromARGB(139, 24, 85, 25), fontWeight: FontWeight.w100, fontSize: 14),)
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20,),
+              _signin(context),
+              const SizedBox(height: 20,),
+              _signup(context)
             ],
           ),
         ),

@@ -59,7 +59,7 @@ class ExchangePointsPage extends StatelessWidget {
             FutureBuilder<QuerySnapshot>(
               future: FirebaseFirestore.instance
                   .collection('rewardpoints')
-                  .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                  .where('userId', isEqualTo: FirebaseAuth.instance.currentUser?.uid)
                   .get(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {

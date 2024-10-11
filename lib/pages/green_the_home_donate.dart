@@ -215,7 +215,7 @@ class _GreenTheHomeDonateState extends State<GreenTheHomeDonate> {
                             )
                           : ElevatedButton.styleFrom(),
                       child: _flag
-                          ? Text('$_selectedValue\LKR')
+                          ? Text('${_selectedValue}LKR')
                           : const Text('Custom Amount'),
                     ),
                   ],

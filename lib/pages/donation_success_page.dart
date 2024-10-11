@@ -35,7 +35,7 @@ class GreenTheHomeDonateSuccessPage extends StatelessWidget {
                     color: theme.colorScheme.secondary),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -47,10 +47,10 @@ class GreenTheHomeDonateSuccessPage extends StatelessWidget {
                             builder: (context) => const Home()),
                       );
                     },
-                    icon: Icon(Icons.home),
-                    label: Text('Home'),
+                    icon: const Icon(Icons.home),
+                    label: const Text('Home'),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   ElevatedButton.icon(
                     onPressed: () {
                       Navigator.push(
@@ -59,8 +59,8 @@ class GreenTheHomeDonateSuccessPage extends StatelessWidget {
                             builder: (context) => const DonationHistoryPage()),
                       );
                     },
-                    icon: Icon(Icons.history),
-                    label: Text('History'),
+                    icon: const Icon(Icons.history),
+                    label: const Text('History'),
                   ),
                 ],
               ),

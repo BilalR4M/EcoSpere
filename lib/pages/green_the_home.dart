@@ -4,6 +4,8 @@ import 'green_the_home_ov.dart';
 import 'green_the_home_donate.dart';
 
 class GreenTheHomePage extends StatelessWidget {
+  const GreenTheHomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -36,12 +38,27 @@ class GreenTheHomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 20),
-              Image.asset(
-                'assets/images/indoor_plants.png',
-                width: MediaQuery.of(context).size.width * 0.8,
-              ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
+                Container(
+                decoration: BoxDecoration(
+                  boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10,
+                    offset: Offset(0, 5),
+                  ),
+                  ],
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
+                  'assets/images/indoor_plants.png',
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  ),
+                ),
+                ),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
@@ -52,12 +69,12 @@ class GreenTheHomePage extends StatelessWidget {
                   style: theme.textTheme.bodyMedium,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(20.0),
-                  fixedSize: Size(300, 80),
-                  textStyle: TextStyle(
+                  padding: const EdgeInsets.all(20.0),
+                  fixedSize: const Size(300, 80),
+                  textStyle: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
@@ -70,22 +87,22 @@ class GreenTheHomePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => GreenTheHomeDonate()),
+                    MaterialPageRoute(builder: (context) => const GreenTheHomeDonate()),
                   );
                 },
                 // child: Text('Donate'),
-                icon: Icon(
+                icon: const Icon(
                   Icons.volunteer_activism,
                   size: 40,
                 ),
-                label: Text('Donate'),
+                label: const Text('Donate'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(20.0),
-                  fixedSize: Size(300, 80),
-                  textStyle: TextStyle(
+                  padding: const EdgeInsets.all(20.0),
+                  fixedSize: const Size(300, 80),
+                  textStyle: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
@@ -98,22 +115,22 @@ class GreenTheHomePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => GreenTheHomePO()),
+                    MaterialPageRoute(builder: (context) => const GreenTheHomePO()),
                   );
                 },
                 // child: Text('Donate'),
-                icon: Icon(
+                icon: const Icon(
                   Icons.book,
                   size: 40,
                 ),
-                label: Text('Program Overview'),
+                label: const Text('Program Overview'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               OutlinedButton.icon(
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(20.0),
-                  fixedSize: Size(300, 80),
-                  textStyle: TextStyle(
+                  padding: const EdgeInsets.all(20.0),
+                  fixedSize: const Size(300, 80),
+                  textStyle: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
@@ -128,11 +145,11 @@ class GreenTheHomePage extends StatelessWidget {
                   Navigator.pushNamed(context, '/donations');
                 },
                 // child: Text('Donate'),
-                icon: Icon(
+                icon: const Icon(
                   Icons.history,
                   size: 40,
                 ),
-                label: Text('My Donations'),
+                label: const Text('My Donations'),
               ),
             ],
           ),
@@ -143,6 +160,7 @@ class GreenTheHomePage extends StatelessWidget {
         currentIndex: 0, // Change this based on the active page
         selectedItemColor: const Color(0xff185519),
         unselectedItemColor: const Color(0xffB9B9B9),
+        elevation: 0,
         items: const [
           BottomNavigationBarItem(
         icon: Icon(Icons.home),

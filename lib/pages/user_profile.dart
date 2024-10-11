@@ -120,6 +120,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
         unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
         showUnselectedLabels: false,
+        elevation: 0,
         currentIndex: 3,
         onTap: (index) {
           switch (index) {

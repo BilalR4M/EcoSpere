@@ -52,12 +52,20 @@ class Signup extends StatelessWidget {
           child: Column(
             children: [
               const Text(
-                'Get Started 🍃',
+                'Get Started',
                 style: TextStyle(
                     color:Color(0xff185519),
                     fontWeight: FontWeight.w700,
-                    fontSize: 32
+                    fontSize: 36
                   )
+              ),
+              const Text(
+                'Create an account to get started',
+                style: TextStyle(
+                  color: Color.fromARGB(162, 106, 106, 106),
+                  fontWeight: FontWeight.normal,
+                  fontSize: 16
+                ),
               ),
               const SizedBox(height: 64),
               _nameField(),

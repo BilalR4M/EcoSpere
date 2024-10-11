@@ -1,4 +1,3 @@
-import 'package:ecosphere/pages/my_trees.dart';
 import 'package:flutter/material.dart';
 
 class NotificationsPage extends StatelessWidget {
@@ -45,6 +44,7 @@ class NotificationsPage extends StatelessWidget {
         unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
         showUnselectedLabels: false,
+        elevation: 0,
         currentIndex: 2,
         onTap: (index) {
           // Handle navigation based on tapped icon

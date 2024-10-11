@@ -143,10 +143,16 @@ class GreenTheHomePO extends StatelessWidget {
                 const SizedBox(height: 20),
                 Row(
                   children: [
-                    Image.asset(
-                      'assets/images/indoor_plants.png',
+                    Container(
                       width: 200,
-                      height: 200,
+                      height: 155,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: const DecorationImage(
+                          image: AssetImage('assets/images/indoor_plants.png'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       width: 10.0,
@@ -195,7 +201,7 @@ class GreenTheHomePO extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>  GreenTheHomeDonate()),
+                          builder: (context) =>  const GreenTheHomeDonate()),
                     );
                   },
                   // child: Text('Donate'),

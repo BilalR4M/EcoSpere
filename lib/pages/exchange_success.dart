@@ -6,6 +6,7 @@ class SuccessPage extends StatefulWidget {
   const SuccessPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SuccessPageState createState() => _SuccessPageState();
 }
 

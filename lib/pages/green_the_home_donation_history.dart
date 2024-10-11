@@ -28,9 +28,28 @@ class DonationHistoryPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Donation History'),
+        title: const Text('Donation History', style: TextStyle(fontSize: 28, fontWeight: FontWeight.normal, color: Color(0xff185519))),
         centerTitle: true,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            margin: const EdgeInsets.only(left: 10),
+            decoration: const BoxDecoration(
+              color: Color(0xffF7F7F9),
+              shape: BoxShape.circle
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
       ),
+      
       body: Center(
         child: Column(
           children: [

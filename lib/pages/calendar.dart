@@ -113,6 +113,7 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
         ],
         backgroundColor: Colors.transparent,
+        forceMaterialTransparency: true,
         elevation: 0,
         toolbarHeight: 100,
         leading: GestureDetector(
@@ -258,6 +259,7 @@ class _CalendarPageState extends State<CalendarPage> {
         unselectedItemColor: const Color(0xffB9B9B9),
         showSelectedLabels: false,
         showUnselectedLabels: false,
+        elevation: 0,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
