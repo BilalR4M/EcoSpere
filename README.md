@@ -1,4 +1,4 @@
-# ecosphere
+# Ecosphere
 
 A new Flutter project.
 
